@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FirebaseService} from './services/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  patients: any;
+
+  constructor(private firebaseService: FirebaseService) {
+  }
+
+  ngOnInit() {
+    this.firebaseService.getPatiens().subscribe(patients => {
+      console.log(patients);
+      this.patients = patients;
+    });
+  }
 }
