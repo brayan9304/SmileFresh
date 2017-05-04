@@ -14,7 +14,6 @@ export class AppComponent {
 
   ngOnInit() {
     this.firebaseService.getPatiens().subscribe(patients => {
-      console.log(patients);
       this.patients = patients;
     });
   }

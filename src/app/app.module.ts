@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
-import { CalendarComponent } from "./components/calendar.component";
+import { CalendarComponent } from './components/calendar/calendar.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseService } from './services/firebase.service';
@@ -33,7 +33,7 @@ export const firebaseConfig  = {
   ],
 
   providers: [FirebaseService],
-  bootstrap: [CalendarComponent,AppComponent]
+  bootstrap: [CalendarComponent, AppComponent]
 })
 
 export class AppModule { }
