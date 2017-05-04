@@ -1,6 +1,5 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
-import {AngularFireDatabase} from 'angularfire2/database';
+import {Component} from '@angular/core';
+import {FirebaseListObservable} from 'angularfire2';
 import {FirebaseService} from '../../services/firebase.service';
 
 
