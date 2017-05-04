@@ -16,7 +16,7 @@ declare var moment: any;
 export class CalendarComponent {
   events: FirebaseListObservable<any>;
 
-  constructor(private af: AngularFire, private elRef: ElementRef, db: AngularFireDatabase, firebaseService: FirebaseService) {
+  constructor(private firebaseService: FirebaseService) {
     let arrayEvents = [];
     let event;
     jQuery(document).ready(function () {
@@ -33,8 +33,6 @@ export class CalendarComponent {
       });
 
       function setCalendar(events: object) {
-        const eventsItems = db.list('/events');
-        console.log(eventsItems);
         jQuery('#calendar').fullCalendar({
           header: {
             left: 'prev,next today',
@@ -53,7 +51,7 @@ export class CalendarComponent {
                 start: moment(start).format(),
                 end: end
               };
-              eventsItems.push(eventData);
+              firebaseService.saveEvent(eventData);
               jQuery('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
             }
             jQuery('#calendar').fullCalendar('unselect');
