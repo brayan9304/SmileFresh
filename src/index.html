@@ -7,8 +7,79 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel='stylesheet' href='../node_modules/fullcalendar/dist/fullcalendar.css'/>
+  <script src='../node_modules/jquery/dist/jquery.min.js'></script>
+  <script src='../node_modules/moment/min/moment.min.js'></script>
+  <script src='../node_modules/fullcalendar/dist/fullcalendar.js'></script>
+  <script>
+  </script>
 </head>
 <body>
-  <app-root>Loading...</app-root>
+<app-root>Loading...</app-root>
+<calendar-component></calendar-component>
+<script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBztQAoQjoALzEByMaBdcru6T_U7_7tT4o",
+    authDomain: "smilefresh-c4304.firebaseapp.com",
+    databaseURL: "https://smilefresh-c4304.firebaseio.com",
+    projectId: "smilefresh-c4304",
+    storageBucket: "smilefresh-c4304.appspot.com",
+    messagingSenderId: "874134046342"
+  };
+  firebase.initializeApp(config);
+  var database = firebase.database();
+  var eventsRef = database.ref("events");
+  var arrayEvents = [];
+  var event;
+  var list;
+  $(document).ready(function () {
+    eventsRef.on('value', function (snapshot) {
+      list = snapshot.val();
+      for (key in list) {
+        event = {
+          title: list[key].title,
+          start: list[key].start
+        };
+        arrayEvents.push(event);
+      }
+      // page is now ready, initialize the calendar...
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        navLinks: true, // can click day/week names to navigate views
+        selectable: true,
+        selectHelper: true,
+        select: function (start, end) {
+          var title = prompt('Patient Name: ');
+          var eventData;
+          if (title) {
+            eventData = {
+              title: title,
+              start: moment(start).format(),
+              end: end
+            };
+            eventsRef.push().set(eventData);
+            $('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
+          }
+          $('#calendar').fullCalendar('unselect');
+        },
+        editable: true,
+        eventLimit: true, // allow "more" link when too many events
+        events: arrayEvents,
+        eventClick: function (event) {
+          event.title = prompt('Patient Name: ');
+          if (event.title) {
+            $('#calendar').fullCalendar('updateEvent', event);
+          }
+        }
+      });
+    });
+  });
+</script>
 </body>
 </html>
