@@ -1,25 +1,17 @@
 import { Injectable } from '@angular/core';
-import {AngularFire, FirebaseListObservable} from 'angularfire2';
 
 
 @Injectable()
 export class FirebaseService {
-  patients: FirebaseListObservable<any[]>;
-  events: FirebaseListObservable<any[]>;
 
-  constructor(private af: AngularFire) {}
+  constructor() {}
 
-  getPatiens(){
-    this.patients = this.af.database.list('/Patients') as FirebaseListObservable<Patient[]>;
-    return this.patients;
+
+  getEvents(database){
   }
-  getEvents(){
-    this.events = this.af.database.list('/events') as FirebaseListObservable<Patient[]>;
-    return this.events;
-  }
-  saveEvent(events){
-    this.events = this.af.database.list('/events') as FirebaseListObservable<Patient[]>;
-    this.events.push(events);
+  saveEvent(events, database) {
+    var eventsRef = database.ref("events");
+    eventsRef.push().set(events);
     return null;
   }
 }

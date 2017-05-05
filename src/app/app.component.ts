@@ -13,8 +13,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.firebaseService.getPatiens().subscribe(patients => {
-      this.patients = patients;
-    });
+
   }
 }

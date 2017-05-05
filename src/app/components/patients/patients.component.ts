@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2";
 
 @Component({
   selector: 'app-patients',
@@ -7,18 +6,9 @@ import {AngularFireDatabase, FirebaseObjectObservable} from "angularfire2";
   styleUrls: ['patients.component.css']
 })
 export class PatientsComponent implements OnInit {
-  item: FirebaseObjectObservable<any>;
-  constructor(db : AngularFireDatabase) {
-    this.item = db.object('/patients');
+  constructor() {
   }
 
   ngOnInit() {
   }
-
-  addPatient(){
-    firebase.database().ref('/patients').push("new data");
-  }
-
-
-
 }
