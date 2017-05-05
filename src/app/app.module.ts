@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule, Routes} from '@angular/router';
+import {CalendarComponent} from 'ap-angular2-fullcalendar/src/calendar/calendar';
+
 
 import { AppComponent } from './app.component';
 
-import { CalendarComponent } from './components/calendar/calendar.component';
+import { CustomCalendarComponent } from './components/calendar/calendar.component';
 
 import { AngularFireModule } from 'angularfire2';
 import { FirebaseService } from './services/firebase.service';
@@ -25,15 +27,16 @@ export const firebaseConfig  = {
 export const appRoutes : Routes = [
   //{path:'', component : AppComponent},
   {path:'patients', component: PatientsComponent},
-  {path:'calendar', component : CalendarComponent}
+  {path:'calendar', component : CustomCalendarComponent}
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    CalendarComponent,
+    CustomCalendarComponent,
     PatientsComponent,
-    NavbarComponent
+    NavbarComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,

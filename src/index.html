@@ -17,7 +17,10 @@
 </head>
 <body>
 <app-root>Loading...</app-root>
-<calendar-component></calendar-component>
+
+<calendar-component>
+  <angular2-fullcalendar [options]="calendarOptions"></angular2-fullcalendar>
+</calendar-component>
 <script src="https://www.gstatic.com/firebasejs/3.9.0/firebase.js"></script>
 </body>
 </html>
