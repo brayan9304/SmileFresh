@@ -1,36 +1,46 @@
 import {Component} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
+import {EventCalendar} from "./event-date";
+
 
 
 declare var jQuery: any;
 declare var moment: any;
 declare var firebase: any;
+
+
 @Component({
   selector: 'app-calendar-component',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent {
 
+
+export class CalendarComponent {
+  database = firebase.database();
+  firebaseService: FirebaseService;
+  eventData: EventCalendar;
+  start: any;
 
   onSubmit() {
-    console.log("bitch");
+    this.eventData.start=moment(this.start).format();
+    this.firebaseService.saveEvent(this.eventData, this.database);
   }
 
-  constructor(private firebaseService: FirebaseService) {
-    const database = firebase.database();
-    const eventsRef = database.ref('events');
-    let arrayEvents = [];
-    let event;
-    let list;
+  constructor() {
 
+    let arrayEvents = [];
+    let list;
+    let event;
+    const eventsRef = this.database.ref('events');
     jQuery(document).ready(function () {
       eventsRef.on('value', function (snapshot) {
         list = snapshot.val();
         for (let key in list) {
-          event = {
-            title: list[key].title,
-            start: list[key].start,
+         event ={
+            //id_doctor:1,
+            title:list[key].patient,
+            start:list[key].start
           };
           arrayEvents.push(event);
         }
@@ -48,6 +58,7 @@ export class CalendarComponent {
           selectHelper: true,
           select: function (start, end) {
             jQuery('#add_event_modal').modal();
+
             /*let title = prompt('Patient Name: ');
             let eventData;
             if (title) {
