@@ -15,7 +15,7 @@ export class FirebaseService {
     return null;
   }
   savePatient(patient,database){
-    var eventsRef = database.ref("events");
+    var eventsRef = database.ref("patients");
     eventsRef.push().set(patient);
     return null;
   }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Patient} from "../patient";
-import {FirebaseService} from "../../services/firebase.service";
+import {Patient} from '../patient';
+import {FirebaseService} from '../../services/firebase.service';
 
 declare var firebase: any;
 
@@ -12,8 +12,17 @@ declare var firebase: any;
 export class PatientsComponent implements OnInit {
   service: FirebaseService;
   addPat: boolean = false;
-  patient: Patient;
-  database : any;
+  patient: Patient = {
+    id: '',
+  firstName : '',
+  lastName : '',
+  address : '',
+  phone : 0,
+  occupation : '',
+  birthdate : '',
+  genre : ''
+  };
+  database: any;
 
   constructor(firebaseService: FirebaseService) {
     this.service = firebaseService;

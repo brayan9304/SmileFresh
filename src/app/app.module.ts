@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes} from '@angular/router';
 import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FirebaseService } from './services/firebase.service';
 import { PatientsComponent } from './components/patients/patients.component';
-import {NavbarComponent} from './components/navbar/navbar.component';
+import { NavbarComponent} from './components/navbar/navbar.component';
 
 
 declare var firebase: any;
