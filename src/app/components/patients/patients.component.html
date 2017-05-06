@@ -1,1 +1,18 @@
-
+<button (click)="addPatient()" class="btn btn-primary"> ADD PATIENT </button>
+<div *ngIf="addPat">
+  <form>
+    <div class="input-group">
+      <div>ID<input [(ngModel)]="patient.id" id="patientId" type = "number" name="id" class="form-control" placeholder="Patient's ID"></div>
+      <div>First Name<input [(ngModel)]="patient.firstName" id="patient_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Patient's Name"></div>
+      <div>Last Name<input [(ngModel)]="patient.lastName" id="patient_last_name" type = "text" name="patientLastName" class="form-control" placeholder="Patient's Last Name"></div>
+      <div>Address<input [(ngModel)]="patient.address" id="patient_address" type = "text" name="patientAdress" class="form-control" placeholder="Patient's Address"></div>
+      <div>Cellphone's Number<input [(ngModel)]="patient.phone" id="patient_phone" name="patientPhone" type = "number" class="form-control" placeholder="Patient's Number"></div>
+      <div>Occupation<input [(ngModel)]="patient.occupation" id="patient_occupation" name="patientOccupation" type = "text" class="form-control" placeholder="Patient's Occupation"></div>
+      <div>Birthdate<input [(ngModel)]="patient.birthdate" id="patient_birthdate" type = "date" name="patientBirthday" class="form-control" placeholder="Patient's ID"></div>
+      <div>Genre<input [(ngModel)]="patient.genre" id="patient_genre" type = "text" name="patientGenre" class="form-control" placeholder="Patient's Genre"></div>
+    </div>
+    <div>
+      <button (click)="addPatientInformation()" class="btn btn-primary">DONE</button>
+    </div>
+  </form>
+</div>

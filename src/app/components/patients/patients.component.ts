@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Patient} from '../patient';
+import {FirebaseService} from '../../services/firebase.service';
+
+declare var firebase: any;
 
 @Component({
   selector: 'app-patients',
@@ -6,9 +10,34 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['patients.component.css']
 })
 export class PatientsComponent implements OnInit {
-  constructor() {
+  service: FirebaseService;
+  addPat: boolean = false;
+  patient: Patient = {
+    id: '',
+  firstName : '',
+  lastName : '',
+  address : '',
+  phone : 0,
+  occupation : '',
+  birthdate : '',
+  genre : ''
+  };
+  database: any;
+
+  constructor(firebaseService: FirebaseService) {
+    this.service = firebaseService;
+    this.database = firebase.database();
   }
 
   ngOnInit() {
+  }
+
+  addPatient() {
+    this.addPat = true;
+  }
+
+  addPatientInformation() {
+    this.service.savePatient(this.patient, this.database);
+    this.addPat = false;
   }
 }
