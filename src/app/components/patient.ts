@@ -3,12 +3,12 @@ import {PatientsHistory} from './patientsHistory';
 export class Patient{
   id: string;
   firstName : string;
-  secondName : string;
+  lastName : string;
   address : string;
   phone : number;
   occupation : string;
   birthdate : string;
-  age : number;
+  //age : number;
   genre : string;
-  patientHistory : PatientsHistory;
+  //patientHistory : PatientsHistory;
 }
