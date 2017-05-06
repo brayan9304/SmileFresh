@@ -1,7 +1,6 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
 import {EventCalendar} from "./event-date";
-
 
 
 declare var jQuery: any;
@@ -19,19 +18,15 @@ declare var firebase: any;
 export class CalendarComponent {
   database = firebase.database();
   firebaseService: FirebaseService;
-  eventData: EventCalendar;
-  start: any;
-
-  onSubmit() {
-    this.eventData.start=moment(this.start).format();
-    this.firebaseService.saveEvent(this.eventData, this.database);
-  }
-
-  constructor() {
-
+  eventData: EventCalendar={
+    patient:'',
+    start:''
+  };
+  constructor(firebaseService: FirebaseService) {
     let arrayEvents = [];
     let list;
     let event;
+    this.firebaseService = firebaseService;
     const eventsRef = this.database.ref('events');
     jQuery(document).ready(function () {
       eventsRef.on('value', function (snapshot) {
@@ -86,5 +81,8 @@ export class CalendarComponent {
 
       // page is now ready, initialize the calendar...
     });
+  }
+  onSubmit() {
+    this.firebaseService.saveEvent(this.eventData, this.database);
   }
 }

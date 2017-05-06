@@ -23,20 +23,20 @@
           <form (ngSubmit)="onSubmit()" #dateForm="ngForm" role="form">
             <div class="form-group">
               <label for="date_time">Date</label>
-              <input  [(ngModel)]="eventData.start" type="datetime-local" name="date_time" class="form-control" required
-                     id="date_time" placeholder="Enter date with hours"/>
+              <input id="date_start" [(ngModel)]="eventData.start" type="datetime" name="date_time" class="form-control" required
+                      id="date_time" placeholder="Enter date with hours"/>
             </div>
 
             <div class="form-group">
               <label for="doctor-select">Doctor</label>
-              <select name="doctor-select" class="form-control" id="doctor-select">
+              <select  name="doctor-select" class="form-control" id="doctor-select">
                 <option>Alejandro</option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="patient-select">Patient</label>
-              <select  name="patient-select" class="form-control" id="patient-select">
+              <select [(ngModel)]="eventData.patient" name="patient-select" class="form-control" id="patient-select">
                 <option>Alejandro</option>
               </select>
             </div>
