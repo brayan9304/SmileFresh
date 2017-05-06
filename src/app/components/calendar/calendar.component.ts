@@ -12,6 +12,11 @@ declare var firebase: any;
 })
 export class CalendarComponent {
 
+
+  onSubmit() {
+    console.log("bitch");
+  }
+
   constructor(private firebaseService: FirebaseService) {
     const database = firebase.database();
     const eventsRef = database.ref('events');
@@ -42,7 +47,8 @@ export class CalendarComponent {
           selectable: true,
           selectHelper: true,
           select: function (start, end) {
-            let title = prompt('Patient Name: ');
+            jQuery('#add_event_modal').modal();
+            /*let title = prompt('Patient Name: ');
             let eventData;
             if (title) {
               eventData = {
@@ -52,7 +58,7 @@ export class CalendarComponent {
               };
               firebaseService.saveEvent(eventData, database);
               jQuery('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }
+            }*/
             jQuery('#calendar').fullCalendar('unselect');
           },
           editable: true,
