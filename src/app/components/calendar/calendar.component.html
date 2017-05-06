@@ -1,2 +1,65 @@
 
-<div id="calendar" ></div>
+<div id="calendar">
+  <!-- Modal -->
+  <div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog"
+       aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <button type="button" class="close"
+                  data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            Modal title
+          </h4>
+        </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+
+          <form (ngSubmit)="onSubmit()" #dateForm="ngForm" role="form">
+            <div class="form-group">
+              <label for="date_time">Date</label>
+              <input id="date_start" [(ngModel)]="eventData.start" type="datetime" name="date_time" class="form-control" required
+                      id="date_time" placeholder="Enter date with hours"/>
+            </div>
+
+            <div class="form-group">
+              <label for="doctor-select">Doctor</label>
+              <select  name="doctor-select" class="form-control" id="doctor-select">
+                <option>Alejandro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="patient-select">Patient</label>
+              <select [(ngModel)]="eventData.patient" name="patient-select" class="form-control" id="patient-select">
+                <option>Alejandro</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="date_duration">Duration</label>
+              <input name="date_duration" type="time" class="form-control"
+                     id="date_duration" placeholder="Enter date duration" required/>
+            </div>
+
+            <div class="form-group">
+              <label for="date_price">Price</label>
+              <input name="date_price" type="number" class="form-control"
+                     id="date_price" placeholder="Enter date price" required/>
+            </div>
+
+            <button type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save event</button>
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

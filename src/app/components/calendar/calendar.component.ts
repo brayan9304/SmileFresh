@@ -1,31 +1,41 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
+import {EventCalendar} from "./event-date";
 
 
 declare var jQuery: any;
 declare var moment: any;
 declare var firebase: any;
+
+
 @Component({
   selector: 'app-calendar-component',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
+
+
 export class CalendarComponent {
-
-  constructor(private firebaseService: FirebaseService) {
-    const database = firebase.database();
-    const eventsRef = database.ref('events');
+  database = firebase.database();
+  firebaseService: FirebaseService;
+  eventData: EventCalendar={
+    patient:'',
+    start:''
+  };
+  constructor(firebaseService: FirebaseService) {
     let arrayEvents = [];
-    let event;
     let list;
-
+    let event;
+    this.firebaseService = firebaseService;
+    const eventsRef = this.database.ref('events');
     jQuery(document).ready(function () {
       eventsRef.on('value', function (snapshot) {
         list = snapshot.val();
         for (let key in list) {
-          event = {
-            title: list[key].title,
-            start: list[key].start,
+         event ={
+            //id_doctor:1,
+            title:list[key].patient,
+            start:list[key].start
           };
           arrayEvents.push(event);
         }
@@ -42,7 +52,9 @@ export class CalendarComponent {
           selectable: true,
           selectHelper: true,
           select: function (start, end) {
-            let title = prompt('Patient Name: ');
+            jQuery('#add_event_modal').modal();
+
+            /*let title = prompt('Patient Name: ');
             let eventData;
             if (title) {
               eventData = {
@@ -52,7 +64,7 @@ export class CalendarComponent {
               };
               firebaseService.saveEvent(eventData, database);
               jQuery('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }
+            }*/
             jQuery('#calendar').fullCalendar('unselect');
           },
           editable: true,
@@ -69,5 +81,8 @@ export class CalendarComponent {
 
       // page is now ready, initialize the calendar...
     });
+  }
+  onSubmit() {
+    this.firebaseService.saveEvent(this.eventData, this.database);
   }
 }
