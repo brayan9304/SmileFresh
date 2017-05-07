@@ -9,6 +9,7 @@ declare var firebase: any;
   templateUrl: 'doctors.component.html',
   styleUrls: ['doctors.component.css']
 })
+
 export class DoctorsComponent implements OnInit {
   service: FirebaseService;
   database: any;
