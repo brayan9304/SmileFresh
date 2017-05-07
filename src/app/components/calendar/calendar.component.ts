@@ -23,10 +23,13 @@ export class CalendarComponent {
     let event;
     this.firebaseService = firebaseService;
     this.eventData={
-      patient:'',
-      start:''
+      date:'',
+      startTime:'',
+      endTime:'',
+      doctor:'',
+      price:'',
+      patient:''
     };
-
     const eventsRef = this.database.ref('events');
     jQuery(document).ready((e) => {
       eventsRef.on('value', function (snapshot) {
@@ -35,7 +38,10 @@ export class CalendarComponent {
          event ={
             //id_doctor:1,
             title:list[key].patient,
-            start:list[key].start
+            start:list[key].date + "T" +list[key].startTime,
+            end: list[key].date + "T" +list[key].endTime,
+            doctor: list[key].doctor,
+            price: list[key].price
           };
           arrayEvents.push(event);
         }
@@ -43,8 +49,8 @@ export class CalendarComponent {
       });
 
       var setDate = (date)=>{
-        this.eventData.start = date;
-        console.log(this.eventData.start);
+        this.eventData.date = date;
+        console.log(this.eventData.date);
       }
       // page is now ready, initialize the calendar...
       function setCalendar(events: object) {
@@ -76,7 +82,14 @@ export class CalendarComponent {
     });
   }
   onSubmit() {
+    let eventRender={
+      start: this.eventData.date + "T" +this.eventData.startTime,
+      end: this.eventData.date + "T" +this.eventData.endTime,
+      title: this.eventData.patient,
+      doctor: this.eventData.doctor,
+      price: this.eventData.price
+    };
     this.firebaseService.saveEvent(this.eventData, this.database);
-    jQuery('#calendar').fullCalendar('renderEvent', this.eventData, true);
+    jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
   }
 }
