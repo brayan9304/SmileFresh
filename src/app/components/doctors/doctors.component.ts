@@ -20,7 +20,8 @@ export class DoctorsComponent implements OnInit {
   }
 
   addDoctor(){
-    console.log(this.myDoctor);
+    this.service.savePatient(this.myDoctor, this.database);
+    this.addPat = false;
   }
 
   ngOnInit() {

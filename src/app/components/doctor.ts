@@ -7,5 +7,4 @@ export class Doctor{
   specialization : string;
   birthdate : string;
   genre : string;
-  //patientHistory : PatientsHistory;
 }
