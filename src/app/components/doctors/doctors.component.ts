@@ -24,6 +24,11 @@ export class DoctorsComponent implements OnInit {
     this.service.saveDoctor(this.myDoctor, this.database);
   }
 
+  getDoctors(){
+    this.service.saveDoctor(this.myDoctor, this.database);
+  }
+
+
   ngOnInit() {
   }
 
