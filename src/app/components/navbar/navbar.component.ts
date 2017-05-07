@@ -17,6 +17,5 @@ export class NavbarComponent implements OnInit {
   clicked() {
   	jQuery("#sidebar").toggleClass("active");
     jQuery(".app-container").toggleClass("__sidebar");
-    console.log("hola");
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
 import {EventCalendar} from "./event-date";
 
@@ -13,34 +13,48 @@ declare var firebase: any;
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-
-
-export class CalendarComponent {
+export class CalendarComponent implements OnInit{
   database = firebase.database();
   firebaseService: FirebaseService;
-  eventData: EventCalendar={
-    patient:'',
-    start:''
-  };
+  eventData: EventCalendar;
   constructor(firebaseService: FirebaseService) {
+
+  }
+  ngOnInit(){
     let arrayEvents = [];
     let list;
     let event;
-    this.firebaseService = firebaseService;
+    this.eventData={
+      date:'',
+      startTime:'',
+      endTime:'',
+      doctor:'',
+      price:'',
+      patient:''
+    };
     const eventsRef = this.database.ref('events');
-    jQuery(document).ready(function () {
+    jQuery(document).ready((e) => {
       eventsRef.on('value', function (snapshot) {
         list = snapshot.val();
         for (let key in list) {
-         event ={
+          event ={
             //id_doctor:1,
             title:list[key].patient,
-            start:list[key].start
+            start:list[key].date + "T" +list[key].startTime,
+            end: list[key].date + "T" +list[key].endTime,
+            doctor: list[key].doctor,
+            price: list[key].price
           };
           arrayEvents.push(event);
         }
         setCalendar(arrayEvents);
       });
+
+      var setDate = (date)=>{
+        this.eventData.date = date;
+        console.log(this.eventData.date);
+      }
+      // page is now ready, initialize the calendar...
       function setCalendar(events: object) {
         jQuery('#calendar').fullCalendar({
           header: {
@@ -53,18 +67,7 @@ export class CalendarComponent {
           selectHelper: true,
           select: function (start, end) {
             jQuery('#add_event_modal').modal();
-
-            /*let title = prompt('Patient Name: ');
-            let eventData;
-            if (title) {
-              eventData = {
-                title: title,
-                start: moment(start).format(),
-                end: end
-              };
-              firebaseService.saveEvent(eventData, database);
-              jQuery('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }*/
+            setDate(moment(start).format());
             jQuery('#calendar').fullCalendar('unselect');
           },
           editable: true,
@@ -78,11 +81,17 @@ export class CalendarComponent {
           }
         });
       }
-
-      // page is now ready, initialize the calendar...
     });
   }
   onSubmit() {
+    let eventRender={
+      start: this.eventData.date + "T" +this.eventData.startTime,
+      end: this.eventData.date + "T" +this.eventData.endTime,
+      title: this.eventData.patient,
+      doctor: this.eventData.doctor,
+      price: this.eventData.price
+    };
     this.firebaseService.saveEvent(this.eventData, this.database);
+    jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
   }
 }
