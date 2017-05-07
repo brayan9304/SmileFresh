@@ -12,16 +12,21 @@ declare var firebase: any;
 export class PatientsComponent implements OnInit {
   service: FirebaseService;
   addPat: boolean = false;
+  showPat: boolean = false;
+  patientList:Array<any>;
+  list: any;
+  item: Patient
   patient: Patient = {
     id: '',
-  firstName : '',
-  lastName : '',
-  address : '',
-  phone : 0,
-  occupation : '',
-  birthdate : '',
-  genre : ''
+    firstName : '',
+    lastName : '',
+    address : '',
+    phone : '',
+    occupation : '',
+    birthdate : '',
+    genre : ''
   };
+  patients: Object[];
   database: any;
 
   constructor(firebaseService: FirebaseService) {
@@ -30,6 +35,9 @@ export class PatientsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.service.getPatientsList();
+    this.patients = this.service.patients;
+    console.log(this.patients);
   }
 
   addPatient() {
@@ -37,7 +45,28 @@ export class PatientsComponent implements OnInit {
   }
 
   addPatientInformation() {
-    this.service.savePatient(this.patient, this.database);
+    this.service.savePatient(this.patient);
     this.addPat = false;
+  }
+  showPatient() {
+    this.service.getPatientsList();
+    this.patients = this.service.patients;
+    this.showPat = true;
+    this.patientList = [];
+    this.list = this.patients;
+    for (let key in this.list) {
+      this.item  = {
+           id: this.list[key].id,
+           firstName: this.list[key].firstName,
+           lastName: this.list[key].lastName,
+           address: this.list[key].address,
+           phone: this.list[key].phone,
+           occupation: this.list[key].occupation,
+           birthdate: this.list[key].birthdate,
+           genre: this.list[key].genre
+      };
+      this.patientList.push(this.item);
+    }
+
   }
 }

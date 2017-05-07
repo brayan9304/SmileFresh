@@ -1,3 +1,11 @@
+<button (click)="showPatient()" class="btn btn-primary"> SHOW PATIENT </button>
+<div *ngIf="showPat">
+  <div *ngFor="let patient of patientList">
+    <p>oe {{patient.firstName}}</p>
+  </div>
+</div>
+
+
 <button (click)="addPatient()" class="btn btn-primary"> ADD PATIENT </button>
 <div *ngIf="addPat">
   <form>

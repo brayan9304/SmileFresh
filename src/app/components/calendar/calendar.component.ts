@@ -89,7 +89,7 @@ export class CalendarComponent {
       doctor: this.eventData.doctor,
       price: this.eventData.price
     };
-    this.firebaseService.saveEvent(this.eventData, this.database);
+    this.firebaseService.saveEvent(this.eventData);
     jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
   }
 }
