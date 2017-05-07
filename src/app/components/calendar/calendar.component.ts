@@ -23,16 +23,12 @@ export class CalendarComponent {
     let event;
     this.firebaseService = firebaseService;
     this.eventData={
-      date:'',
-      startTime:'',
-      endTime:'',
-      doctor:'',
-      price:'',
       patient:'',
       start:''
     };
+
     const eventsRef = this.database.ref('events');
-    jQuery(document).ready(function () {
+    jQuery(document).ready((e) => {
       eventsRef.on('value', function (snapshot) {
         list = snapshot.val();
         for (let key in list) {
@@ -45,6 +41,11 @@ export class CalendarComponent {
         }
         setCalendar(arrayEvents);
       });
+
+      var setDate = (date)=>{
+        this.eventData.start = date;
+        console.log(this.eventData.start);
+      }
       // page is now ready, initialize the calendar...
       function setCalendar(events: object) {
         jQuery('#calendar').fullCalendar({
@@ -57,9 +58,8 @@ export class CalendarComponent {
           selectable: true,
           selectHelper: true,
           select: function (start, end) {
-
             jQuery('#add_event_modal').modal();
-            jQuery('input#date_time').val(moment(start).format()/*+"T23:59"*/);
+            setDate(moment(start).format());
             jQuery('#calendar').fullCalendar('unselect');
           },
           editable: true,
