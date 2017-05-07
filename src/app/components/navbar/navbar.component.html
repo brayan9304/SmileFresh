@@ -8,7 +8,7 @@
   <div class="sidebar-menu">
     <ul class="sidebar-nav">
       <li class="">
-        <a class="animsition-link" a [routerLink] = "['/']" routerLinkActive="active">
+        <a class="animsition-link" [routerLink] = "['/']" routerLinkActive="active">
           <div class="icon">
             <i class="fa fa-home" aria-hidden="true"></i>
           </div>
@@ -64,9 +64,9 @@
           <a class="navbar-brand" href="#"><span class="highlight">SMILE</span> FRESH</a>
         </li>
       </ul> 
-      <ul class="nav navbar-nav navbar-right">
-        <li class="btn btn-default">
-          <a class="sidebar-brand" href="#"><span class="highlight">SMILE</span> FRESH</a>
+      <ul class="nav navbar-nav navbar-right" style="padding-right: 20px;">
+        <li class="btn btn-default" >
+          <a class="sidebar-brand" [routerLink] = "['/']" routerLinkActive="active"><span class="highlight">SMILE</span> FRESH</a>
         </li>
       </ul>     
     </div>

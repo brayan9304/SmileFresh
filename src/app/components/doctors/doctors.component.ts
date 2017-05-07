@@ -3,6 +3,7 @@ import {Doctor} from '../doctor';
 import {FirebaseService} from '../../services/firebase.service';
 
 declare var firebase: any;
+declare var $: any;
 
 @Component({
   selector: 'app-doctors',
@@ -17,7 +18,7 @@ export class DoctorsComponent implements OnInit {
 
   constructor(firebaseService: FirebaseService) {
     this.service = firebaseService;
-    this.database = firebase.database();
+    this.database = firebase.database();     
   }
 
   addDoctor(){
@@ -25,11 +26,14 @@ export class DoctorsComponent implements OnInit {
   }
 
   getDoctors(){
-    this.service.saveDoctor(this.myDoctor, this.database);
+    console.log(this.service.saveDoctor(this.myDoctor, this.database));
   }
 
 
   ngOnInit() {
+    $(document).ready(function() {
+      $('#doctores').dataTable();
+    });
   }
 
 }

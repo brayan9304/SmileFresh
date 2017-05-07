@@ -21,8 +21,12 @@ export class FirebaseService {
   }
   saveDoctor(doctor,database){
     var eventsRef = database.ref("doctors");
-    eventsRef.push().set(doctor);
-    return null;
+    eventsRef.push().set(doctor, function(error) {
+      if (error)
+        console.log('Error has occured during saving process')
+      else
+        console.log("Data hss been saved succesfully")
+    })
   }
 }
 

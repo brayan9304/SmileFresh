@@ -1,76 +1,93 @@
- <div class="panel">
-  <header class="panel-heading">
-    <h3 class="panel-title">Row Toggler</h3>
-  </header>
-  <div class="panel-body">
+<button type="button" class="btn btn-raised btn-primary" data-toggle="modal" data-target="#modalAddPatient">
+      Add Doctor
+      </button>
 
-      <button class="btn btn-primary"> ADD DOCTORS </button>
-      <div>
-        <form>
-          <div class="input-group">
-            <div>ID<input [(ngModel)]="myDoctor.id" id="doctorId" type = "number" name="id" class="form-control" placeholder="Doctor's ID"></div>
-            <div>First Name<input [(ngModel)]="myDoctor.firstName" id="doctor_first_name" name="doctorFirstName" type="text" class="form-control" placeholder="Doctor's Name"></div>
-            <div>Last Name<input [(ngModel)]="myDoctor.lastName" id="doctor_last_name" type = "text" name="doctorLastName" class="form-control" placeholder="Doctor's Last Name"></div>
-            <div>Address<input [(ngModel)]="myDoctor.address" id="doctor_address" type = "text" name="doctorAdress" class="form-control" placeholder="Doctor's Address"></div>
-            <div>Cellphone's Number<input [(ngModel)]="myDoctor.phone" id="doctor_phone" name="doctorPhone" type = "number" class="form-control" placeholder="Doctor's Number"></div>
-            <div>Specialization<input [(ngModel)]="myDoctor.specialization" id="doctor_occupation" name="doctorOccupation" type = "text" class="form-control" placeholder="Doctor's Occupation"></div>
-            <div>Birthdate<input [(ngModel)]="myDoctor.birthdate" id="doctor_birthdate" type = "date" name="doctorBirthday" class="form-control" placeholder="Doctor's ID"></div>
-            <div>Genre<input [(ngModel)]="myDoctor.genre" id="doctor_genre" type = "text" name="doctorGenre" class="form-control" placeholder="Doctor's Genre"></div>
-          </div>
-          <div>
-            <button (click)="addDoctor()" class="btn btn-primary">DONE</button>
-          </div>
-        </form>
+<div class="modal fade" id="modalAddPatient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Add Doctor</h4>
       </div>
- </div>
+      <div class="modal-body">
+          <form>
+            <div class="form-group label-floating">
+                <label for="doctor_id" class="control-label">Doctor's Identification</label>
+                <input [(ngModel)]="myDoctor.id" id="doctor_id" name="patientFirstName" type="text" class="form-control" placeholder="Doctor's Identification">
+            </div>
+            <div class="form-group label-floating">
+                <label for="doctor_first_name" class="control-label">Doctor's First Name</label>
+                <input [(ngModel)]="myDoctor.firstName" id="doctor_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Doctor's Name">
+             </div>
+             <div class="form-group label-floating">
+                <label for="doctor_last_name" class="control-label">Doctor's Last name</label>
+                <input [(ngModel)]="myDoctor.lastName" id="doctor_last_name" type = "text" name="doctorLastName" class="form-control" placeholder="Doctor's Last Name">
+             </div>
+             <div class="form-group label-floating">
+                <label for="doctor_address" class="control-label">Doctor's Address</label>
+                <input [(ngModel)]="myDoctor.address" id="doctor_address" type = "text" name="doctorAdress" class="form-control" placeholder="Doctor's Address">
+             </div>
+             <div class="form-group label-floating">
+                <label for="doctor_phone" class="control-label">Doctor's Phone</label>
+                <input [(ngModel)]="myDoctor.phone" id="doctor_phone" name="doctorPhone" type = "number" class="form-control" placeholder="Doctor's Number">
+             </div>
+             <div class="form-group label-floating">
+                <label for="doctor_occupation" class="control-label">Doctor's Occupation</label>
+                <input [(ngModel)]="myDoctor.specialization" id="doctor_occupation" name="doctorOccupation" type = "text" class="form-control" placeholder="Doctor's Occupation">
+             </div>
+             <div class="form-group label-floating">
+                <label for="doctor_birthdate" class="control-label">Doctor's Birthdate</label>
+                <input [(ngModel)]="myDoctor.birthdate" id="doctor_birthdate" type = "date" name="doctorBirthday" class="form-control" placeholder="Doctor's Birthdate">
+             </div>
+             <div class="form-group">
+                <label for="s1">Genere</label>
+                <select id="s1" class="form-control" [(ngModel)]="myDoctor.genre" id="doctor_genre" name="doctorGenre" class="form-control" placeholder="Doctor's Genre"> 
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                </select>
+              </div>
+            <button (click)="addDoctor()" class="btn btn-raised btn-primary">ADD DOCTOR</button>
+          </form>
+        </div>
+    </div>
+  </div>
 </div>
-
-<button class="btn btn-info" data-target="#formAddDoctor" data-toggle="modal"
-                  type="button">Add doctor</button>
-                  <!-- Modal -->
-                  <div class="modal fade modal-3d-flip-vertical" id="formAddDoctor"
-                  aria-hidden="true" role="dialog"
-                  tabindex="-1">
-                    <div class="modal-dialog modal-simple">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">×</span>
-                          </button>
-                          <h4 class="modal-title">Modal Title</h4>
-                        </div>
-                        <div class="modal-body">
-                         <form class="form-horizontal" id="addDoctor" autocomplete="off">
-                            <div class="summary-errors alert alert-danger alert-dismissible">
-                              <button type="button" class="close" aria-label="Close" data-dismiss="alert">
-                                <span aria-hidden="true">×</span>
-                              </button>
-                              <p>Errors list below: </p>
-                              <ul></ul>
-                            </div>
-                            <div class="form-group row form-material">
-                              <label class="col-md-3 form-control-label">Full name</label>
-                              <div class="col-md-9">
-                                <input [(ngModel)]="myDoctor.id" id="doctorId" type="text" name="id" class="form-control" placeholder="Doctor's ID"/>
-                              </div>
-                            </div>
-                            <div class="form-group row form-material">
-                              <label class="col-md-3 form-control-label">Email</label>
-                              <div class="col-md-9">
-                                <input type="text" class="form-control" name="summary_email" />
-                              </div>
-                            </div>
-                            <div class="form-group row form-material">
-                              <label class="col-md-3 form-control-label">Content</label>
-                              <div class="col-md-9">
-                                <textarea class="form-control" name="summary_content" rows="5"></textarea>
-                              </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="submit" class="btn btn-primary" id="validateButton3">Submit</button>
-                            </div>
-                          </form>
-                        </div>                        
-                      </div>
-                    </div>
-                  </div>
+<div class="tablaDatos">
+  <table id="doctores" class="datatable table table-striped primary" cellspacing="0" width="100%">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Address</th>
+              <th>Phone</th>
+              <th>Occupation</th>
+              <th>Birthdate</th>
+              <th>Genere</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr>
+              <td>Tiger Nixon</td>
+              <td>System Architect</td>
+              <td>Edinburgh</td>
+              <td>61</td>
+              <td>2011/04/25</td>
+              <td>$320,800</td>
+              <td>2011/04/25</td>
+              <td>$320,800</td>
+          </tr>
+          <tr>
+              <td>Garrett Winters</td>
+              <td>Accountant</td>
+              <td>Tokyo</td>
+              <td>63</td>
+              <td>2011/07/25</td>
+              <td>$170,750</td>
+              <td>2011/04/25</td>
+              <td>$320,800</td>
+          </tr>
+         
+      </tbody>
+  </table>
+</div>
