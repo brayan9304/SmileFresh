@@ -1,0 +1,329 @@
+  <button class="btn btn-primary"> ADD DOCTORS </button>
+<div>
+  <form>
+    <div class="input-group">
+      <div>ID<input [(ngModel)]="myDoctor.id" id="doctorId" type = "number" name="id" class="form-control" placeholder="Doctor's ID"></div>
+      <div>First Name<input [(ngModel)]="myDoctor.firstName" id="doctor_first_name" name="doctorFirstName" type="text" class="form-control" placeholder="Doctor's Name"></div>
+      <div>Last Name<input [(ngModel)]="myDoctor.lastName" id="doctor_last_name" type = "text" name="doctorLastName" class="form-control" placeholder="Doctor's Last Name"></div>
+      <div>Address<input [(ngModel)]="myDoctor.address" id="doctor_address" type = "text" name="doctorAdress" class="form-control" placeholder="Doctor's Address"></div>
+      <div>Cellphone's Number<input [(ngModel)]="myDoctor.phone" id="doctor_phone" name="doctorPhone" type = "number" class="form-control" placeholder="Doctor's Number"></div>
+      <div>Specialization<input [(ngModel)]="myDoctor.specialization" id="doctor_occupation" name="doctorOccupation" type = "text" class="form-control" placeholder="Doctor's Occupation"></div>
+      <div>Birthdate<input [(ngModel)]="myDoctor.birthdate" id="doctor_birthdate" type = "date" name="doctorBirthday" class="form-control" placeholder="Doctor's ID"></div>
+      <div>Genre<input [(ngModel)]="myDoctor.genre" id="doctor_genre" type = "text" name="doctorGenre" class="form-control" placeholder="Doctor's Genre"></div>
+    </div>
+    <div>
+      <button (click)="addDoctor()" class="btn btn-primary">DONE</button>
+    </div>
+  </form>
+</div>
+
+
+
+
+<div class="row">
+        <div class="col-lg-12">
+          <!-- Panel Filtering -->
+          <div class="panel">
+            <header class="panel-heading">
+              <h3 class="panel-title">Filtering</h3>
+            </header>
+            <div class="panel-body">
+              <table class="table table-bordered table-hover toggle-circle" id="exampleFootableFiltering">
+                <thead>
+                  <tr>
+                    <th data-toggle="true">First Name</th>
+                    <th>Last Name</th>
+                    <th data-hide="phone, tablet">Job Title</th>
+                    <th data-hide="phone, tablet">DOB</th>
+                    <th data-hide="phone, tablet">Status</th>
+                  </tr>
+                </thead>
+                <div class="form-inline padding-bottom-15">
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label class="control-label">Status</label>
+                        <select id="filteringStatus" class="form-control">
+                          <option value="">Show all</option>
+                          <option value="active">Active</option>
+                          <option value="disabled">Disabled</option>
+                          <option value="suspended">Suspended</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                      <div class="form-group">
+                        <input id="filteringSearch" type="text" placeholder="Search" class="form-control"
+                        autocomplete="off">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <tbody>
+                  <tr>
+                    <td>Shona</td>
+                    <td>Woldt</td>
+                    <td>Airline Transport Pilot</td>
+                    <td>3 Oct 2015</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lizzee</td>
+                    <td>Goodlow</td>
+                    <td>Technical Services Librarian</td>
+                    <td>1 Nov 2014</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Isidra</td>
+                    <td>Boudreaux</td>
+                    <td>Traffic Court Referee</td>
+                    <td>22 Jun 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Granville</td>
+                    <td>Leonardo</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>19 Apr 2013</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lauri</td>
+                    <td>Hyland</td>
+                    <td>Blackjack Supervisor</td>
+                    <td>15 Nov 2014</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Easer</td>
+                    <td>Dragoo</td>
+                    <td>Drywall Stripper</td>
+                    <td>13 Dec 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maple</td>
+                    <td>Halladay</td>
+                    <td>Aviation Tactical Readiness Officer</td>
+                    <td>30 Dec 2015</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maxine</td>
+                    <td>Woldt</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>17 Oct 2014</td>
+                    <td>
+                      <span class="label label-table label-dark">Disabled</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lorraine</td>
+                    <td>Mcgaughy</td>
+                    <td>Hemodialysis Technician</td>
+                    <td>11 Nov 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Judi</td>
+                    <td>Badgett</td>
+                    <td>Electrical Lineworker</td>
+                    <td>23 Jun 2013</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Granville</td>
+                    <td>Leonardo</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>19 Apr 2013</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lauri</td>
+                    <td>Hyland</td>
+                    <td>Blackjack Supervisor</td>
+                    <td>15 Nov 2014</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Easer</td>
+                    <td>Dragoo</td>
+                    <td>Drywall Stripper</td>
+                    <td>13 Dec 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maple</td>
+                    <td>Halladay</td>
+                    <td>Aviation Tactical Readiness Officer</td>
+                    <td>30 Dec 2015</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maxine</td>
+                    <td>Woldt</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>17 Oct 2014</td>
+                    <td>
+                      <span class="label label-table label-dark">Disabled</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lorraine</td>
+                    <td>Mcgaughy</td>
+                    <td>Hemodialysis Technician</td>
+                    <td>11 Nov 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Judi</td>
+                    <td>Badgett</td>
+                    <td>Electrical Lineworker</td>
+                    <td>23 Jun 2013</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Granville</td>
+                    <td>Leonardo</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>19 Apr 2013</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Lauri</td>
+                    <td>Hyland</td>
+                    <td>Blackjack Supervisor</td>
+                    <td>15 Nov 2014</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Easer</td>
+                    <td>Dragoo</td>
+                    <td>Drywall Stripper</td>
+                    <td>13 Dec 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maple</td>
+                    <td>Halladay</td>
+                    <td>Aviation Tactical Readiness Officer</td>
+                    <td>30 Dec 2015</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maxine</td>
+                    <td>Woldt</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>17 Oct 2014</td>
+                    <td>
+                      <span class="label label-table label-dark">Disabled</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Easer</td>
+                    <td>Dragoo</td>
+                    <td>Drywall Stripper</td>
+                    <td>13 Dec 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maple</td>
+                    <td>Halladay</td>
+                    <td>Aviation Tactical Readiness Officer</td>
+                    <td>30 Dec 2015</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maxine</td>
+                    <td>Woldt</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>17 Oct 2014</td>
+                    <td>
+                      <span class="label label-table label-dark">Disabled</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Easer</td>
+                    <td>Dragoo</td>
+                    <td>Drywall Stripper</td>
+                    <td>13 Dec 2014</td>
+                    <td>
+                      <span class="label label-table label-success">Active</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maple</td>
+                    <td>Halladay</td>
+                    <td>Aviation Tactical Readiness Officer</td>
+                    <td>30 Dec 2015</td>
+                    <td>
+                      <span class="label label-table label-danger">Suspended</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Maxine</td>
+                    <td>Woldt</td>
+                    <td>Business Services Sales Representative</td>
+                    <td>17 Oct 2014</td>
+                    <td>
+                      <span class="label label-table label-dark">Disabled</span>
+                    </td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="5">
+                      <div class="text-right">
+                        <ul class="pagination"></ul>
+                      </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+          <!-- End Panel Filtering -->
+        </div>

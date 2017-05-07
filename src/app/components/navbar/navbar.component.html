@@ -1,20 +1,72 @@
-<nav class="navbar navbar-inverse">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">Smile Fresh</a>
+<div class="site-menubar">
+    <div class="site-menubar-body">
+      <div>
+        <div>
+          <ul class="site-menu" data-plugin="menu">
+            <li class="site-menu-item">
+              <a class="animsition-link" a [routerLink] = "['/']" routerLinkActive="active">
+                <i class="site-menu-icon md-view-dashboard" aria-hidden="true"></i>
+                <span class="site-menu-title">Consultorio</span>
+              </a>
+            </li>
+            <li class="site-menu-item has-sub">
+              <a [routerLink] = "['/doctors']" routerLinkActive="active">
+                <i class="site-menu-icon md-view-compact" aria-hidden="true"></i>
+                <span class="site-menu-title">Doctores</span>
+              </a>
+            </li>
+            <li class="site-menu-item has-sub">
+              <a [routerLink] = "['/patients']" routerLinkActive="active">
+                <i class="site-menu-icon md-google-pages" aria-hidden="true"></i>
+                <span class="site-menu-title">Patients</span>
+              </a>
+            </li>            
+            <li class="site-menu-item has-sub">
+              <a [routerLink] = "['/calendar']" routerLinkActive="active">
+                <i class="site-menu-icon md-google-pages" aria-hidden="true"></i>
+                <span class="site-menu-title">Calendar</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div id="navbar" class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-        <li><a [routerLink] = "['/']" routerLinkActive="active">Consultory</a></li>
-        <li><a [routerLink] = "['/patients']" routerLinkActive="active">Patients</a></li>
-        <li><a [routerLink] = "['/calendar']" routerLinkActive="active">Calendar</a></li>
-      </ul>
-    </div><!--/.nav-collapse -->
   </div>
-</nav>
+
+  <nav class="site-navbar navbar navbar-default navbar-inverse navbar-fixed-top navbar-mega"
+  role="navigation">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggler hamburger hamburger-close navbar-toggler-left hided"
+      data-toggle="menubar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="hamburger-bar"></span>
+      </button>
+      <div class="navbar-brand navbar-brand-center site-gridmenu-toggle" data-toggle="gridmenu">
+        <i class="fa fa-heartbeat" aria-hidden="true"></i>
+        <span class="navbar-brand-text "> SmileFresh</span>
+      </div>
+    </div>
+    <div class="navbar-container container-fluid">
+      <!-- Navbar Collapse -->
+      <div class="collapse navbar-collapse navbar-collapse-toolbar" id="site-navbar-collapse">
+        <!-- Navbar Toolbar -->
+        <ul class="nav navbar-toolbar">
+          <li class="nav-item hidden-float" id="toggleMenubar">
+            <a class="nav-link" data-toggle="menubar" href="#" role="button">
+              <i class="icon hamburger hamburger-arrow-left">
+                  <span class="sr-only">Toggle menubar</span>
+                  <span class="hamburger-bar"></span>
+                </i>
+            </a>
+          </li>
+          <li class="nav-item hidden-sm-down" id="toggleFullscreen">
+            <a class="nav-link icon icon-fullscreen" data-toggle="fullscreen" href="#" role="button">
+              <span class="sr-only">Toggle fullscreen</span>
+            </a>
+          </li>
+        </ul>
+        <!-- End Navbar Toolbar -->
+      </div>
+      <!-- End Navbar Collapse -->
+    </div>
+  </nav>
