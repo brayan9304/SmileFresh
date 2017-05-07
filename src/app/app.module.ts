@@ -11,6 +11,7 @@ import { NavbarComponent} from './components/navbar/navbar.component';
 
 
 declare var firebase: any;
+declare var jQuery: any;
 
 const config = {
   apiKey: 'AIzaSyBztQAoQjoALzEByMaBdcru6T_U7_7tT4o',
