@@ -22,7 +22,4 @@ export class FirebaseService {
 }
 
 
-interface Patient {
-  $id: string;
-  name: string;
-}
+
