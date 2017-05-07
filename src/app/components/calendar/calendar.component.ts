@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
 import {EventCalendar} from "./event-date";
 
@@ -13,20 +13,24 @@ declare var firebase: any;
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-
-
 export class CalendarComponent {
   database = firebase.database();
   firebaseService: FirebaseService;
-  eventData: EventCalendar={
-    patient:'',
-    start:''
-  };
+  eventData: EventCalendar;
   constructor(firebaseService: FirebaseService) {
     let arrayEvents = [];
     let list;
     let event;
     this.firebaseService = firebaseService;
+    this.eventData={
+      date:'',
+      startTime:'',
+      endTime:'',
+      doctor:'',
+      price:'',
+      patient:'',
+      start:''
+    };
     const eventsRef = this.database.ref('events');
     jQuery(document).ready(function () {
       eventsRef.on('value', function (snapshot) {
@@ -41,6 +45,7 @@ export class CalendarComponent {
         }
         setCalendar(arrayEvents);
       });
+      // page is now ready, initialize the calendar...
       function setCalendar(events: object) {
         jQuery('#calendar').fullCalendar({
           header: {
@@ -52,19 +57,9 @@ export class CalendarComponent {
           selectable: true,
           selectHelper: true,
           select: function (start, end) {
-            jQuery('#add_event_modal').modal();
 
-            /*let title = prompt('Patient Name: ');
-            let eventData;
-            if (title) {
-              eventData = {
-                title: title,
-                start: moment(start).format(),
-                end: end
-              };
-              firebaseService.saveEvent(eventData, database);
-              jQuery('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-            }*/
+            jQuery('#add_event_modal').modal();
+            jQuery('input#date_time').val(moment(start).format()/*+"T23:59"*/);
             jQuery('#calendar').fullCalendar('unselect');
           },
           editable: true,
@@ -78,11 +73,10 @@ export class CalendarComponent {
           }
         });
       }
-
-      // page is now ready, initialize the calendar...
     });
   }
   onSubmit() {
     this.firebaseService.saveEvent(this.eventData, this.database);
+    jQuery('#calendar').fullCalendar('renderEvent', this.eventData, true);
   }
 }

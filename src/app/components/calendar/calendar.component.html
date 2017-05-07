@@ -18,13 +18,25 @@
         </div>
 
         <!-- Modal Body -->
-        <div class="modal-body">
+        <div id="modal-event" class="modal-body">
 
           <form (ngSubmit)="onSubmit()" #dateForm="ngForm" role="form">
             <div class="form-group">
               <label for="date_time">Date</label>
-              <input id="date_start" [(ngModel)]="eventData.start" type="datetime" name="date_time" class="form-control" required
-                      id="date_time" placeholder="Enter date with hours"/>
+              <input type="date" name="date_time" class="form-control" required
+                      id="date_time" [(ngModel)]="eventData.start"/>
+            </div>
+
+            <div class="form-group">
+              <label for="start_time">Start Time</label>
+              <input  type="time" name="start_time" class="form-control" required
+                     id="start_time" placeholder="Enter date with hours"/>
+            </div>
+
+            <div class="form-group">
+              <label for="end_time">End Time</label>
+              <input  type="time" name="end_time" class="form-control" required
+                     id="end_time" placeholder="Enter date with hours"/>
             </div>
 
             <div class="form-group">
@@ -42,18 +54,12 @@
             </div>
 
             <div class="form-group">
-              <label for="date_duration">Duration</label>
-              <input name="date_duration" type="time" class="form-control"
-                     id="date_duration" placeholder="Enter date duration" required/>
-            </div>
-
-            <div class="form-group">
               <label for="date_price">Price</label>
               <input name="date_price" type="number" class="form-control"
                      id="date_price" placeholder="Enter date price" required/>
             </div>
 
-            <button type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save event</button>
+            <button id="submit" type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save event</button>
           </form>
 
 
