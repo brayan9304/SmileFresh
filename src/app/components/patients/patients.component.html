@@ -16,6 +16,11 @@
               <input [(ngModel)]="patient.id" id="patientId" type="text" name="id" class="form-control" placeholder="Patient's ID" class="form-control" aria-describedby="textHelp">
               <small id="textHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
+            <div class="form-group label-floating">
+                <label for="patient_first_name" class="control-label">Patient's Name</label>
+                <input [(ngModel)]="patient.firstName" id="patient_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Patient's Name">
+                <span class="help-block">Please enter your first name.</span>
+             </div>
             <button (click)="addPatientInformation()" class="btn btn-raised btn-primary">DONE</button>
           </form>
         </div>
@@ -24,13 +29,19 @@
 </div>
 
 
+              <div class="form-group label-floating">
+                <label for="patient_first_name" class="control-label">Patient's Name</label>
+                <input [(ngModel)]="patient.firstName" id="patient_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Patient's Name">
+                <span class="help-block">Please enter your first name.</span>
+              </div>
+
 
 
 <form>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    <input [(ngModel)]="patient.firstName" id="patient_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Patient's Name" aria-describedby="firstHelp">
+    <small id="firstHelp" class="form-text text-muted">Please enter your first name.</small>
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
