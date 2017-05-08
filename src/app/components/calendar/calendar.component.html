@@ -1,8 +1,12 @@
-
 <div id="calendar">
   <!-- Modal -->
   <div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog"
        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="loader">
+      <div class="loader-wp">
+      <span>&#123;</span><span>&#125;</span>
+      </div>
+    </div>
     <div class="modal-dialog">
       <div class="modal-content">
         <!-- Modal Header -->
@@ -13,35 +17,34 @@
             <span class="sr-only">Close</span>
           </button>
           <h4 class="modal-title" id="myModalLabel">
-            Modal title
+            New Date
           </h4>
         </div>
 
         <!-- Modal Body -->
         <div id="modal-event" class="modal-body">
-
-          <form (ngSubmit)="onSubmit()" #dateForm="ngForm" role="form">
+          <form #dateForm="ngForm" role="form">
             <div class="form-group">
               <label for="date_time">Date</label>
               <input type="date" name="date_time" class="form-control" required
-                      id="date_time" [(ngModel)]="eventData.date"/>
+                     id="date_time" [(ngModel)]="eventData.date"/>
             </div>
 
             <div class="form-group">
               <label for="start_time">Start Time</label>
-              <input  type="time" name="start_time" class="form-control" required
-                     id="start_time"  [(ngModel)]="eventData.startTime"/>
+              <input type="time" name="start_time" class="form-control" required
+                     id="start_time" [(ngModel)]="eventData.startTime"/>
             </div>
 
             <div class="form-group">
               <label for="end_time">End Time</label>
-              <input  type="time" name="end_time" class="form-control" required
+              <input type="time" name="end_time" class="form-control" required
                      id="end_time" [(ngModel)]="eventData.endTime"/>
             </div>
 
             <div class="form-group">
               <label for="doctor-select">Doctor</label>
-              <select  name="doctor-select" class="form-control" id="doctor-select" [(ngModel)]="eventData.doctor">
+              <select name="doctor-select" class="form-control" id="doctor-select" [(ngModel)]="eventData.doctor">
                 <option>Alejandro</option>
               </select>
             </div>
@@ -58,11 +61,11 @@
               <input name="date_price" type="number" class="form-control"
                      id="date_price" placeholder="Enter date price" required [(ngModel)]="eventData.price"/>
             </div>
-
-            <button id="submit" type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save event</button>
+            <button (click)="onSubmit()" id="submit" type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save
+              Event
+            </button>
+            <button id="edit" class="btn btn-default save-btn" (click)="edit()">Edit</button>
           </form>
-
-
         </div>
       </div>
     </div>
