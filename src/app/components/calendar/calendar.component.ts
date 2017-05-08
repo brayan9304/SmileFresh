@@ -94,7 +94,8 @@ export class CalendarComponent implements OnInit{
       var activateLoader = () => {
         jQuery('.loader').css('display', 'block');
         var refreshIntervalId = setInterval(() =>{
-          if(jQuery('#date_price').val() != ''){
+          console.log(jQuery('#date_time').val());
+          if(jQuery('#date_time').val() != ''){
             jQuery('.loader').css('display', 'none');
             clearInterval(refreshIntervalId);
           }
