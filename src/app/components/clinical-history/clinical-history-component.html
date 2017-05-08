@@ -1,0 +1,38 @@
+<button (click)="addPatient()" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modal"> ADD RECORD </button>
+
+<div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close"
+                data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Modal title
+        </h4>
+      </div>
+
+      <!-- Modal Body -->
+      <div id="modal-event" class="modal-body">
+        <form #record_form="ngForm">
+          <div class="input-group">
+            <div>Description <textarea [(ngModel)]="description" id="record-description" name="id" class="form-control" placeholder="Patient's ID" required></div>
+            <div>Doctor
+              <select [(ngModel)]="doctor" id="doctor_id" class="form-control" id="sel_doctor" name="doctor">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <button  class="btn btn-primary" [disabled]="!record_form.form.valid">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
