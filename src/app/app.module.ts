@@ -11,6 +11,7 @@ import { ClinicalHistoryComponent } from './components/clinical-history/clinical
 import { NavbarComponent} from './components/navbar/navbar.component';
 import { DoctorComponent } from './components/doctor/doctor.component';
 import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
+import {PaymentComponent} from "./components/payment/payment.component";
 
 
 
@@ -31,7 +32,8 @@ export const appRoutes: Routes = [
   {path: 'patients', component: PatientsComponent},
   {path: 'calendar', component : CalendarComponent},
   {path: 'doctors', component : DoctorComponent},
-  {path: 'clinical-history/:id', component : ClinicalHistoryComponent}
+  {path: 'clinical-history/:id', component : ClinicalHistoryComponent},
+  {path: 'payment', component : PaymentComponent}
 ];
 
 @NgModule({
@@ -41,7 +43,8 @@ export const appRoutes: Routes = [
     PatientsComponent,
     DoctorComponent,
     ClinicalHistoryComponent,
-    NavbarComponent
+    NavbarComponent,
+    PaymentComponent
   ],
   imports: [
     BrowserModule,
