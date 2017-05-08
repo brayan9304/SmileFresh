@@ -13,8 +13,12 @@ export class FirebaseService {
   patientsRef = this.database.ref("patients");
   patients: Patient[];
   constructor() {}
-  getEvents(database){
+  editEvent(key, events) {
+    var eventsRef = this.database.ref("events/"+key);
+    eventsRef.set(events);
+    return null;
   }
+
   saveEvent(events) {
     this.eventsRef.push().set(events);
     return null;
