@@ -9,6 +9,7 @@ import { FirebaseService } from './services/firebase.service';
 import { PatientsComponent } from './components/patients/patients.component';
 import { ClinicalHistoryComponent } from './components/clinical-history/clinical-history-component';
 import { NavbarComponent} from './components/navbar/navbar.component';
+import { DoctorComponent } from './components/doctor/doctor.component';
 
 
 declare var firebase: any;
@@ -27,6 +28,7 @@ firebase.initializeApp(config);
 export const appRoutes: Routes = [
   {path: 'patients', component: PatientsComponent},
   {path: 'calendar', component : CalendarComponent},
+  {path: 'doctors', component : DoctorComponent},
   {path: 'clinical-history/:id', component : ClinicalHistoryComponent}
 ];
 
@@ -35,6 +37,7 @@ export const appRoutes: Routes = [
     AppComponent,
     CalendarComponent,
     PatientsComponent,
+    DoctorComponent,
     ClinicalHistoryComponent,
     NavbarComponent
   ],

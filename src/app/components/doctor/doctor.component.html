@@ -1,0 +1,65 @@
+<button (click)="addDoctor()" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modal"> ADD DOCTOR </button>
+<button (click)="showDoctor()" class="btn btn-primary"> SHOW DOCTORS </button>
+
+<div *ngIf="showPat">
+  <ul *ngFor="let doctor of doctorList" class="list-group">
+    <li class="list-group-item">
+      <p>Name: {{doctor.firstName}} {{doctor.lastName}}</p>
+      <p>Phone: {{doctor.phone}}</p>
+      <p>Genre: {{doctor.genre}}</p>
+    </li>
+  </ul>
+</div>
+
+
+<div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close"
+                data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Modal title
+        </h4>
+      </div>
+
+      <!-- Modal Body -->
+      <div id="modal-event" class="modal-body">
+        <form #doctor_form="ngForm">
+          <div class="input-group">
+            <div>ID<input [(ngModel)]="doctor.id" id="doctorId" type = "number" name="id" class="form-control" placeholder="Doctor's ID" required></div>
+            <div>First Name<input [(ngModel)]="doctor.firstName" id="doctor_first_name" name="doctorFirstName" type="text" class="form-control" placeholder="Doctor's Name" required></div>
+            <div>Last Name<input [(ngModel)]="doctor.lastName" id="doctor_last_name" type = "text" name="doctorLastName" class="form-control" placeholder="Doctor's Last Name" required></div>
+            <div>Phone<input [(ngModel)]="doctor.phone" id="doctor_phone" type = "number" name="doctorPhone" class="form-control" placeholder="Doctor's Cellphone" required></div>
+            <div>Genre
+              <select [(ngModel)]="doctor.genre" id="doctor_genre" class="form-control" name="genre">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+            <div>Schedule <br> <br>
+              <select class="selectpicker form-control" multiple [(ngModel)]="doctor.workingDays" id="doctor_schedule"  name="doctor_schedule">
+                <option>Monday</option>
+                <option>Tuesday</option>
+                <option>Wednesday</option>
+                <option>Thursday</option>
+                <option>Friday</option>
+                <option>Saturday</option>
+                <option>Sunday</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <button (click)="addDoctorInformation()" class="btn btn-primary" [disabled]="!doctor_form.form.valid">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

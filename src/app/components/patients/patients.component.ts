@@ -22,7 +22,7 @@ export class PatientsComponent implements OnInit {
     firstName: '',
     lastName: '',
     address: '',
-    phone: '',
+    phone: null,
     age: 0,
     occupation: '',
     birthdate: '',

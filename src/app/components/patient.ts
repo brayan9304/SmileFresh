@@ -1,11 +1,10 @@
-import {PatientsHistory} from './patientsHistory';
 
 export class Patient{
   id: string;
   firstName : string;
   lastName : string;
   address : string;
-  phone : string;
+  phone : number;
   occupation : string;
   birthdate : string;
   age : number;
