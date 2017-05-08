@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from "../../services/firebase.service";
-import {Doctor} from "../doctor";
+import {Doctor} from '../doctor';
 
 declare var firebase: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-doctor',
@@ -79,12 +80,22 @@ export class DoctorComponent implements OnInit {
       this.service.saveDoctor(this.doctor);
       this.doctorList.push(this.doctor);
       this.addDoc = false;
+      this.doctor = {
+        id: '',
+        firstName: '',
+        lastName: '',
+        phone: null,
+        genre: '',
+        workingDays: ''
+      };
+      jQuery('.modal').modal('hide');
     } else{
       alert("Doctor already exists");
     }
   }
 
   showDoctor() {
+    this.doctorList = [];
     this.addDoctorCont += 1;
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;

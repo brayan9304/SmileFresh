@@ -3,6 +3,7 @@ import {Patient} from '../patient';
 import {FirebaseService} from '../../services/firebase.service';
 
 declare var firebase: any;
+declare var jQuery: any;
 
 @Component({
   selector: 'app-patients',
@@ -89,6 +90,18 @@ export class PatientsComponent implements OnInit {
         this.service.savePatient(this.patient);
         this.patientList.push(this.patient);
         this.addPat = false;
+        this.patient = {
+          id: '',
+          firstName: '',
+          lastName: '',
+          address: '',
+          phone: null,
+          age: 0,
+          occupation: '',
+          birthdate: '',
+          genre: ''
+        };
+        jQuery('.modal').modal('hide');
       }else{
         alert("Patient already exists");
       }
@@ -103,6 +116,7 @@ export class PatientsComponent implements OnInit {
 }
 
   showPatient() {
+    this.patientList = [];
     this.patientFilter.firstName = '';
     this.addPatientCont += 1;
     this.service.getPatientsList();
