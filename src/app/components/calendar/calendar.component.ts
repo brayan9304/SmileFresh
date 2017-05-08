@@ -37,7 +37,8 @@ export class CalendarComponent implements OnInit{
       endTime: '',
       doctor: '',
       price: '',
-      patient: ''
+      patient: '',
+      sold:false
     };
 
     const eventsRef = this.database.ref('events');
