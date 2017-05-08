@@ -1,7 +1,20 @@
 <button (click)="addDoctor()" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modal"> ADD DOCTOR </button>
 <button (click)="showDoctor()" class="btn btn-primary"> SHOW DOCTORS </button>
+<button (click)="showDoctorsFiltered()" class="btn btn-primary"> SEARCH DOCTORS BY NAME</button>
 
-<div *ngIf="showPat">
+<div *ngIf="showDocFiltered">
+  <h1>Search doctors by name: </h1>
+  <input style="display: block; width: 80%" type="text" [(ngModel)]="doctorFilter.firstName">
+  <br>
+  <ul *ngFor="let doctor of doctorList | filterBy: doctorFilter" class="list-group">
+    <li class="list-group-item">
+      <p>Name: {{doctor.firstName}} {{doctor.lastName}}</p>
+      <p>Phone: {{doctor.phone}}</p>
+      <p>Genre: {{doctor.genre}}</p>
+    </li>
+  </ul>
+</div>
+<div *ngIf="showDoc">
   <ul *ngFor="let doctor of doctorList" class="list-group">
     <li class="list-group-item">
       <p>Name: {{doctor.firstName}} {{doctor.lastName}}</p>

@@ -11,9 +11,11 @@ declare var firebase: any;
 })
 export class DoctorComponent implements OnInit {
   service: FirebaseService;
-  addPat: boolean = false;
-  showPat: boolean = false;
+  addDoc: boolean = false;
+  showDoc: boolean = false;
+  showDocFiltered: boolean = false;
   doctorList: Array<any> = [];
+  doctorFilter: any = { firstName: '' };
   list: any;
   item: Doctor;
   addDoctorCont: number = 0;
@@ -39,7 +41,30 @@ export class DoctorComponent implements OnInit {
   }
 
   addDoctor() {
-    this.addPat = true;
+    this.addDoc = true;
+  }
+
+  showDoctorsFiltered(){
+    this.addDoctorCont += 1;
+    this.service.getDoctorsList();
+    this.doctors = this.service.doctors;
+    this.showDoc = false;
+    this.showDocFiltered = true;
+    this.list = this.doctors;
+    for (let key in this.list) {
+      if (this.addDoctorCont > 1) {
+        break;
+      }
+      this.item = {
+        id: this.list[key].id,
+        firstName: this.list[key].firstName,
+        lastName: this.list[key].lastName,
+        phone: this.list[key].phone,
+        genre: this.list[key].genre,
+        workingDays: this.list[key].workingDays
+      };
+      this.doctorList.push(this.item);
+    }
   }
 
   addDoctorInformation() {
@@ -53,7 +78,7 @@ export class DoctorComponent implements OnInit {
     if (exist == false) {
       this.service.saveDoctor(this.doctor);
       this.doctorList.push(this.doctor);
-      this.addPat = false;
+      this.addDoc = false;
     } else{
       alert("Doctor already exists");
     }
@@ -63,7 +88,8 @@ export class DoctorComponent implements OnInit {
     this.addDoctorCont += 1;
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;
-    this.showPat = true;
+    this.showDoc = true;
+    this.showDocFiltered = false;
     this.list = this.doctors;
     for (let key in this.list) {
       if (this.addDoctorCont > 1) {

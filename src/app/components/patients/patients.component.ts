@@ -48,8 +48,30 @@ export class PatientsComponent implements OnInit {
   }
 
   showPatientFiltered(){
-  this.showPat = false;
-  this.showPatFiltered = true;
+    this.patientFilter.firstName = '';
+    this.addPatientCont += 1;
+    this.service.getPatientsList();
+    this.patients = this.service.patients;
+    this.showPat = false;
+    this.showPatFiltered = true;
+    this.list = this.patients;
+    for (let key in this.list) {
+      if(this.addPatientCont > 1) {
+        break;
+      }
+      this.item = {
+        id: this.list[key].id,
+        firstName: this.list[key].firstName,
+        lastName: this.list[key].lastName,
+        address: this.list[key].address,
+        phone: this.list[key].phone,
+        occupation: this.list[key].occupation,
+        birthdate: this.list[key].birthdate,
+        age: this.calcAge(this.list[key].birthdate),
+        genre: this.list[key].genre
+      };
+      this.patientList.push(this.item);
+    }
 }
 
   addPatientInformation() {
