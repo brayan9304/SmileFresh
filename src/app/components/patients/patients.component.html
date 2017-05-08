@@ -1,18 +1,57 @@
-<button (click)="addPatient()" class="btn btn-primary"> ADD PATIENT </button>
-<div *ngIf="addPat">
-  <form>
-    <div class="input-group">
-      <div>ID<input [(ngModel)]="patient.id" id="patientId" type = "number" name="id" class="form-control" placeholder="Patient's ID"></div>
-      <div>First Name<input [(ngModel)]="patient.firstName" id="patient_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Patient's Name"></div>
-      <div>Last Name<input [(ngModel)]="patient.lastName" id="patient_last_name" type = "text" name="patientLastName" class="form-control" placeholder="Patient's Last Name"></div>
-      <div>Address<input [(ngModel)]="patient.address" id="patient_address" type = "text" name="patientAdress" class="form-control" placeholder="Patient's Address"></div>
-      <div>Cellphone's Number<input [(ngModel)]="patient.phone" id="patient_phone" name="patientPhone" type = "number" class="form-control" placeholder="Patient's Number"></div>
-      <div>Occupation<input [(ngModel)]="patient.occupation" id="patient_occupation" name="patientOccupation" type = "text" class="form-control" placeholder="Patient's Occupation"></div>
-      <div>Birthdate<input [(ngModel)]="patient.birthdate" id="patient_birthdate" type = "date" name="patientBirthday" class="form-control" placeholder="Patient's ID"></div>
-      <div>Genre<input [(ngModel)]="patient.genre" id="patient_genre" type = "text" name="patientGenre" class="form-control" placeholder="Patient's Genre"></div>
+<button (click)="addPatient()" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modal"> ADD PATIENT </button>
+<button (click)="showPatient()" class="btn btn-primary"> SHOW PATIENTS </button>
+
+<div *ngIf="showPat">
+    <ul *ngFor="let patient of patientList" class="list-group">
+      <li class="list-group-item">
+        <p>{{patient.firstName}} {{patient.lastName}}</p>
+        <p>Tel: {{patient.phone}}</p>
+        <p>Genre: {{patient.genre}}</p>
+        <p>Age: {{patient.age}}</p>
+      </li>
+    </ul>
+</div>
+
+
+<div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <button type="button" class="close"
+                data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">
+          Modal title
+        </h4>
+      </div>
+
+      <!-- Modal Body -->
+      <div id="modal-event" class="modal-body">
+        <form #patient_form="ngForm">
+          <div class="input-group">
+            <div>ID<input [(ngModel)]="patient.id" id="patientId" type = "number" name="id" class="form-control" placeholder="Patient's ID" required></div>
+            <div>First Name<input [(ngModel)]="patient.firstName" id="patient_first_name" name="patientFirstName" type="text" class="form-control" placeholder="Patient's Name" required></div>
+            <div>Last Name<input [(ngModel)]="patient.lastName" id="patient_last_name" type = "text" name="patientLastName" class="form-control" placeholder="Patient's Last Name" required></div>
+            <div>Address<input [(ngModel)]="patient.address" id="patient_address" type = "text" name="patientAdress" class="form-control" placeholder="Patient's Address" required></div>
+            <div>Cellphone's Number<input [(ngModel)]="patient.phone" id="patient_phone" name="patientPhone" type = "number" class="form-control" placeholder="Patient's Number" required></div>
+            <div>Occupation<input [(ngModel)]="patient.occupation" id="patient_occupation" name="patientOccupation" type = "text" class="form-control" placeholder="Patient's Occupation" required></div>
+            <div>Birthdate<input [(ngModel)]="patient.birthdate" id="patient_birthdate" type = "date" name="patientBirthday" class="form-control" placeholder="Patient's ID" required></div>
+            <div>Genre
+              <select [(ngModel)]="patient.genre" id="patient_genre" class="form-control" id="sel1" name="genre">
+                <option>Male</option>
+                <option>Female</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <button (click)="addPatientInformation()" class="btn btn-primary" [disabled]="!patient_form.form.valid">SAVE</button>
+          </div>
+        </form>
+      </div>
     </div>
-    <div>
-      <button (click)="addPatientInformation()" class="btn btn-primary">DONE</button>
-    </div>
-  </form>
+  </div>
 </div>
