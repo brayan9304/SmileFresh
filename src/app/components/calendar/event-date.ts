@@ -6,5 +6,6 @@ export class EventCalendar{
   doctor:string;
   price:string;
   patient:string;
+  sold:boolean;
 
 }
