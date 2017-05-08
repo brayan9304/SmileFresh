@@ -9,6 +9,11 @@ export class FirebaseService {
 
   getEvents(database){
   }
+  editEvent(key,events,database){
+    var eventsRef = database.ref("events/"+key);
+    eventsRef.set(events);
+    return null;
+  }
   saveEvent(events, database) {
     var eventsRef = database.ref("events");
     eventsRef.push().set(events);
