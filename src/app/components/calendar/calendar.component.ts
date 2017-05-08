@@ -15,7 +15,10 @@ export class CalendarComponent implements OnInit{
   database = firebase.database();
   firebaseService: FirebaseService;
   eventData: EventCalendar;
-  isFirstTime: Boolean = true;
+  patients;
+  doctors;
+  days=['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+  doctors_available =[];
   keyEventData;
 
   constructor(firebaseService: FirebaseService) {
@@ -24,6 +27,8 @@ export class CalendarComponent implements OnInit{
 
   ngOnInit(){
     let arrayEvents = [];
+    let arrayPatients = [];
+    let arrayDoctors = [];
     let list;
     let event;
     this.eventData = {
@@ -36,7 +41,16 @@ export class CalendarComponent implements OnInit{
     };
 
     const eventsRef = this.database.ref('events');
+    const patientsRef = this.database.ref('patients');
+    const doctorsRef = this.database.ref('doctors');
     jQuery(document).ready((e) => {
+      var setPatients = (arrayPatients) => {
+        this.patients = arrayPatients;
+      };
+      var setDoctors = (arrayDoctors) => {
+        this.doctors = arrayDoctors;
+        console.log(this.doctors);
+      };
       eventsRef.on('value', function (snapshot) {
         arrayEvents = [];
         list = snapshot.val();
@@ -51,7 +65,34 @@ export class CalendarComponent implements OnInit{
           };
           arrayEvents.push(event);
         }
-        setCalendar(arrayEvents);
+       setCalendar(arrayEvents);
+      });
+
+      patientsRef.on('value', function (snapshot) {
+        list = snapshot.val();
+        let patient;
+        for (let key in list) {
+          patient = {
+            firstName: list[key].firstName,
+            lastName: list[key].lastName
+          };
+          arrayPatients.push(patient);
+        }
+        setPatients(arrayPatients);
+      });
+
+      doctorsRef.on('value', function (snapshot) {
+        list = snapshot.val();
+        let doctor;
+        for (let key in list) {
+          doctor = {
+            firstName: list[key].firstName,
+            lastName: list[key].lastName,
+            workingDays: list[key].workingDays
+          };
+          arrayDoctors.push(doctor);
+        }
+        setDoctors(arrayDoctors);
       });
 
       eventsRef.on('child_changed', function(data) {
@@ -60,8 +101,24 @@ export class CalendarComponent implements OnInit{
         window.location.reload();
       });
 
+      var doctorsAvailable = (date) => {
+        let currentlyDate = new Date(date);
+        let dayNumber = currentlyDate.getDay();
+        let dayStr = this.days[dayNumber];
+        this.doctors_available = [];
+        for (let doctor of this.doctors){
+          let workingDays = doctor.workingDays;
+            for(let days of workingDays){
+              if(dayStr == days ){
+                this.doctors_available.push(doctor);
+              }
+            }
+        }
+      };
+
       var setDate = (date) => {
         this.eventData.date = date;
+        doctorsAvailable(this.eventData.date );
       };
       var setEvent = (event) => {
         let startDate = moment(event.start).format();
@@ -70,6 +127,7 @@ export class CalendarComponent implements OnInit{
         endDate = endDate.split('T');
         this.keyEventData = event.eventKey;
         this.eventData.date = startDate[0];
+        doctorsAvailable(this.eventData.date );
         this.eventData.startTime = startDate[1];
         this.eventData.endTime = endDate[1];
         this.eventData.price = event.price;
@@ -92,10 +150,9 @@ export class CalendarComponent implements OnInit{
         return this.eventData = event;
       };
       var activateLoader = () => {
-        jQuery('.loader').css('display', 'block');
+       jQuery('.loader').css('display', 'block');
         var refreshIntervalId = setInterval(() =>{
-          console.log(jQuery('#date_time').val());
-          if(jQuery('#date_time').val() != ''){
+          if(jQuery('select#patient-select').val() != ''){
             jQuery('.loader').css('display', 'none');
             clearInterval(refreshIntervalId);
           }
@@ -113,13 +170,15 @@ export class CalendarComponent implements OnInit{
           selectable: true,
           selectHelper: true,
           select: function (start, end) {
+            if(jQuery('select#patient-select').val() != ''){
+              jQuery('.loader').css('display', 'none');
+            }
             jQuery('h4#myModalLabel').text('New Date');
             jQuery('button#submit').show();
             jQuery('button#edit').hide();
             jQuery('#add_event_modal').modal();
             restore();
             setDate(moment(start).format());
-            console.log(this.eventData);
             jQuery('#calendar').fullCalendar('unselect');
           },
           editable: true,
@@ -138,7 +197,6 @@ export class CalendarComponent implements OnInit{
       }
     });
   }
-
   edit() {
     this.firebaseService.editEvent(this.keyEventData, this.eventData);
   }
