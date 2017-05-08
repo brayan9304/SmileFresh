@@ -63,10 +63,10 @@
               <input name="date_price" type="number" class="form-control"
                      id="date_price" placeholder="Enter date price" required [(ngModel)]="eventData.price"/>
             </div>
-            <button (click)="onSubmit()" id="submit" type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save
+            <button data-dismiss="modal" (click)="onSubmit()" id="submit" type="submit" [disabled]="!dateForm.form.valid" class="btn btn-default save-btn">Save
               Event
             </button>
-            <button id="edit" class="btn btn-default save-btn" (click)="edit()">Edit</button>
+            <button data-dismiss="modal" id="edit" class="btn btn-default save-btn" (click)="edit()">Edit</button>
           </form>
         </div>
       </div>
