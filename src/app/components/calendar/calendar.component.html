@@ -45,14 +45,14 @@
             <div class="form-group">
               <label for="doctor-select">Doctor</label>
               <select name="doctor-select" class="form-control" id="doctor-select" [(ngModel)]="eventData.doctor">
-                <option>Alejandro</option>
+                <option *ngFor="let doctor of doctors_available">{{doctor.firstName}} {{doctor.lastName}} </option>
               </select>
             </div>
 
             <div class="form-group">
               <label for="patient-select">Patient</label>
               <select [(ngModel)]="eventData.patient" name="patient-select" class="form-control" id="patient-select">
-                <option>Alejandro</option>
+                <option *ngFor="let patient of patients">{{patient.firstName}} {{patient.lastName}} </option>
               </select>
             </div>
 
