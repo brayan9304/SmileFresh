@@ -181,6 +181,7 @@ export class CalendarComponent implements OnInit{
             setDate(moment(start).format());
             jQuery('#calendar').fullCalendar('unselect');
           },
+          eventStartEditable: false,
           editable: true,
           eventLimit: true, // allow "more" link when too many events
           events: events,
@@ -208,7 +209,11 @@ export class CalendarComponent implements OnInit{
       doctor: this.eventData.doctor,
       price: this.eventData.price
     };
-    this.firebaseService.saveEvent(this.eventData);
-    jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
+    if(this.eventData.patient != '' &&  this.eventData.doctor != '') {
+      this.firebaseService.saveEvent(this.eventData);
+      jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
+    }else{
+      alert('Empty Fields');
+    }
   }
 }
