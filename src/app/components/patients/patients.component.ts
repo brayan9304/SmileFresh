@@ -48,10 +48,21 @@ export class PatientsComponent implements OnInit {
   addPatientInformation() {
     this.patient.age = this.calcAge(this.patient.birthdate);
 
-    if(this.patient.age >= 0){
-      this.service.savePatient(this.patient);
-      this.patientList.push(this.patient);
-      this.addPat = false;
+    if(this.patient.age >= 0) {
+      let exist = false;
+      for(let item in this.patientList) {
+        if(this.patientList[item].id === this.patient.id) {
+          exist = true;
+          break;
+        }
+      }
+      if(exist == false){
+        this.service.savePatient(this.patient);
+        this.patientList.push(this.patient);
+        this.addPat = false;
+      }else{
+        alert("Patient already exists");
+      }
     } else {
       alert("Enter a valid birthdate");
     }
