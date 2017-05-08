@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Patient} from '../patient';
 import {FirebaseService} from '../../services/firebase.service';
 
@@ -13,18 +13,20 @@ export class PatientsComponent implements OnInit {
   service: FirebaseService;
   addPat: boolean = false;
   showPat: boolean = false;
-  patientList:Array<any>;
+  patientList: Array<any> = [];
   list: any;
-  item: Patient
+  item: Patient;
+  addPatientCont: number = 0;
   patient: Patient = {
     id: '',
-    firstName : '',
-    lastName : '',
-    address : '',
-    phone : '',
-    occupation : '',
-    birthdate : '',
-    genre : ''
+    firstName: '',
+    lastName: '',
+    address: '',
+    phone: '',
+    age: 0,
+    occupation: '',
+    birthdate: '',
+    genre: ''
   };
   patients: Object[];
   database: any;
@@ -37,7 +39,6 @@ export class PatientsComponent implements OnInit {
   ngOnInit() {
     this.service.getPatientsList();
     this.patients = this.service.patients;
-    console.log(this.patients);
   }
 
   addPatient() {
@@ -45,28 +46,44 @@ export class PatientsComponent implements OnInit {
   }
 
   addPatientInformation() {
-    this.service.savePatient(this.patient);
-    this.addPat = false;
+    this.patient.age = this.calcAge(this.patient.birthdate);
+
+    if(this.patient.age >= 0){
+      this.service.savePatient(this.patient);
+      this.patientList.push(this.patient);
+      this.addPat = false;
+    } else {
+      alert("Enter a valid birthdate");
+    }
   }
+
+  calcAge(birthday) {
+  let date: any = new Date(birthday);
+  return Math.floor((Date.now() - date) / 31536000000);
+}
+
   showPatient() {
+    this.addPatientCont += 1;
     this.service.getPatientsList();
     this.patients = this.service.patients;
     this.showPat = true;
-    this.patientList = [];
     this.list = this.patients;
-    for (let key in this.list) {
-      this.item  = {
-           id: this.list[key].id,
-           firstName: this.list[key].firstName,
-           lastName: this.list[key].lastName,
-           address: this.list[key].address,
-           phone: this.list[key].phone,
-           occupation: this.list[key].occupation,
-           birthdate: this.list[key].birthdate,
-           genre: this.list[key].genre
-      };
-      this.patientList.push(this.item);
+      for (let key in this.list) {
+        if(this.addPatientCont > 1) {
+          break;
+        }
+        this.item = {
+          id: this.list[key].id,
+          firstName: this.list[key].firstName,
+          lastName: this.list[key].lastName,
+          address: this.list[key].address,
+          phone: this.list[key].phone,
+          occupation: this.list[key].occupation,
+          birthdate: this.list[key].birthdate,
+          age: this.calcAge(this.list[key].birthdate),
+          genre: this.list[key].genre
+        };
+        this.patientList.push(this.item);
+      }
     }
-
-  }
 }

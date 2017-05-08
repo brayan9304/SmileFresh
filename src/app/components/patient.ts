@@ -8,7 +8,7 @@ export class Patient{
   phone : string;
   occupation : string;
   birthdate : string;
-  //age : number;
+  age : number;
   genre : string;
   //patientHistory : PatientsHistory;
 }
