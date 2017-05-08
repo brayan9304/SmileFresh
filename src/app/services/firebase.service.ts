@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Patient} from "../components/patient";
+import {Patient} from '../components/patient';
+import {PatientsHistory} from '../components/patientsHistory';
 
 
 
@@ -11,7 +12,9 @@ export class FirebaseService {
   database = firebase.database();
   eventsRef = this.database.ref("events");
   patientsRef = this.database.ref("patients");
+  historyRef = this.database.ref("clinical-histories/");
   patients: Patient[];
+  histories: PatientsHistory[];
   constructor() {}
   editEvent(key, events) {
     var eventsRef = this.database.ref("events/"+key);
@@ -21,6 +24,10 @@ export class FirebaseService {
 
   saveEvent(events) {
     this.eventsRef.push().set(events);
+    return null;
+  }
+  saveClinicalHistory(history) {
+    this.historyRef.push().set(history);
     return null;
   }
   savePatient(patientAdded){
@@ -38,8 +45,21 @@ export class FirebaseService {
     this.patientsRef.on('value', gotData, errData);
   }
 
+  getHistorieList(){
+    var gotData = (data => {
+      this.loadHistories(data.val());
+    });
+    var errData = (error => {
+      console.log(error);
+    });
+    this.historyRef.on('value', gotData, errData);
+  }
+
   loadPatients(data){
     this.patients = data;
+  }
+  loadHistories(data){
+    this.histories = data;
   }
 }
 

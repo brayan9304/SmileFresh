@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FirebaseService } from './services/firebase.service';
 import { PatientsComponent } from './components/patients/patients.component';
+import { ClinicalHistoryComponent } from './components/clinical-history/clinical-history-component';
 import { NavbarComponent} from './components/navbar/navbar.component';
 
 
@@ -25,7 +26,8 @@ firebase.initializeApp(config);
 
 export const appRoutes: Routes = [
   {path: 'patients', component: PatientsComponent},
-  {path: 'calendar', component : CalendarComponent}
+  {path: 'calendar', component : CalendarComponent},
+  {path: 'clinical-history/:id', component : ClinicalHistoryComponent}
 ];
 
 @NgModule({
@@ -33,6 +35,7 @@ export const appRoutes: Routes = [
     AppComponent,
     CalendarComponent,
     PatientsComponent,
+    ClinicalHistoryComponent,
     NavbarComponent
   ],
   imports: [
