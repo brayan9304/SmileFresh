@@ -7,3 +7,54 @@
   border: none;
   font-size: 1.1em;
 }
+
+.loader {
+  color: #fff;
+  font-family: Consolas, Menlo, Monaco, monospace;
+  font-weight: bold;
+  font-size: 100px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #1a6ecc;
+  opacity: 0.9;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 2;
+}
+.loader span {
+  vertical-align: middle;
+  display: inline-block;
+  -webkit-animation: pulse 0.4s alternate infinite ease-in-out;
+  animation: pulse 0.4s alternate infinite ease-in-out;
+}
+.loader span:nth-child(odd) {
+  -webkit-animation-delay: 0.4s;
+  animation-delay: 0.4s;
+}
+@-webkit-keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+@keyframes pulse {
+  to {
+    -webkit-transform: scale(0.8);
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+}
+
+
+.loader-wp{
+  height: 200px;
+  width: 200px;
+  position: absolute;
+  right: 0;
+  top:0;
+  bottom: 0;
+  left: 0;
+  margin: auto;
+}

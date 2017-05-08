@@ -2,6 +2,7 @@ export class Doctor {
   id:string;
   firstName:string;
   lastName:string;
-  phone:string;
+  phone:number;
   genre:string;
+  workingDays:string;
 }

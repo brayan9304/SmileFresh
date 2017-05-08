@@ -4,10 +4,12 @@
 <div *ngIf="showPat">
     <ul *ngFor="let patient of patientList" class="list-group">
       <li class="list-group-item">
-        <p>{{patient.firstName}} {{patient.lastName}}</p>
-        <p>Tel: {{patient.phone}}</p>
+        <p>Id: {{patient.id}}</p>
+        <p>Name: {{patient.firstName}} {{patient.lastName}}</p>
+        <p>Phone: {{patient.phone}}</p>
         <p>Genre: {{patient.genre}}</p>
         <p>Age: {{patient.age}}</p>
+        <p><a [routerLink]="['/clinical-history',patient.id]">View clinical history <i class="glyphicon glyphicon-list-alt"></i></a></p>
       </li>
     </ul>
 </div>
