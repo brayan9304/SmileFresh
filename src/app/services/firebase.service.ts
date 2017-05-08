@@ -1,33 +1,47 @@
 import { Injectable } from '@angular/core';
+import {Patient} from "../components/patient";
+
+
+
+declare var firebase: any
 
 
 @Injectable()
 export class FirebaseService {
-
+  database = firebase.database();
+  eventsRef = this.database.ref("events");
+  patientsRef = this.database.ref("patients");
+  patients: Patient[];
   constructor() {}
-
-
-  getEvents(database){
-  }
-  editEvent(key,events,database){
-    var eventsRef = database.ref("events/"+key);
+  editEvent(key, events) {
+    var eventsRef = this.database.ref("events/"+key);
     eventsRef.set(events);
     return null;
   }
-  saveEvent(events, database) {
-    var eventsRef = database.ref("events");
-    eventsRef.push().set(events);
+
+  saveEvent(events) {
+    this.eventsRef.push().set(events);
     return null;
   }
-  savePatient(patient,database){
-    var eventsRef = database.ref("patients");
-    eventsRef.push().set(patient);
+  savePatient(patientAdded){
+    this.patientsRef.push().set(patientAdded);
     return null;
+  }
+
+  getPatientsList(){
+    var gotData = (data => {
+      this.loadPatients(data.val());
+    });
+    var errData = (error => {
+      console.log(error);
+    });
+    this.patientsRef.on('value', gotData, errData);
+  }
+
+  loadPatients(data){
+    this.patients = data;
   }
 }
 
 
-interface Patient {
-  $id: string;
-  name: string;
-}
+

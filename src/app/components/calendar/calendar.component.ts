@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
 import {EventCalendar} from "./event-date";
 
@@ -11,17 +11,21 @@ declare var firebase: any;
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit{
   database = firebase.database();
   firebaseService: FirebaseService;
   eventData: EventCalendar;
+  isFirstTime: Boolean = true;
   keyEventData;
 
   constructor(firebaseService: FirebaseService) {
+    this.firebaseService = firebaseService;
+  }
+
+  ngOnInit(){
     let arrayEvents = [];
     let list;
     let event;
-    this.firebaseService = firebaseService;
     this.eventData = {
       date: '',
       startTime: '',
@@ -71,6 +75,7 @@ export class CalendarComponent {
         this.eventData.price = event.price;
         this.eventData.doctor = event.doctor;
         this.eventData.patient = event.title;
+        activateLoader();
       };
       var restore = () => {
         this.eventData.startTime = '';
@@ -85,6 +90,15 @@ export class CalendarComponent {
 
       var setMainEvent = (event) => {
         return this.eventData = event;
+      };
+      var activateLoader = () => {
+        jQuery('.loader').css('display', 'block');
+        var refreshIntervalId = setInterval(() =>{
+          if(jQuery('#date_price').val() != ''){
+            jQuery('.loader').css('display', 'none');
+            clearInterval(refreshIntervalId);
+          }
+        }, 1000);
       };
       // page is now ready, initialize the calendar...
       function setCalendar(events: object) {
@@ -112,21 +126,20 @@ export class CalendarComponent {
           events: events,
           eventClick: function (event) {
             setEvent(event);
-            console.log(event);
             jQuery('h4#myModalLabel').text('Edit Appointment');
             jQuery('button#submit').hide();
             jQuery('button#edit').show();
             jQuery('#add_event_modal').modal();
-            let mainEvent=getMainEvent();
-            console.log(mainEvent);
+            let mainEvent= getMainEvent();
             jQuery('#calendar').fullCalendar('updateEvent', event);
           }
         });
       }
     });
   }
+
   edit() {
-    this.firebaseService.editEvent(this.keyEventData, this.eventData, this.database);
+    this.firebaseService.editEvent(this.keyEventData, this.eventData);
   }
   onSubmit() {
     let eventRender = {
@@ -136,7 +149,7 @@ export class CalendarComponent {
       doctor: this.eventData.doctor,
       price: this.eventData.price
     };
-    this.firebaseService.saveEvent(this.eventData, this.database);
+    this.firebaseService.saveEvent(this.eventData);
     jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
   }
 }
