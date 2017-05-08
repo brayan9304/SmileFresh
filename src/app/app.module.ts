@@ -10,6 +10,8 @@ import { PatientsComponent } from './components/patients/patients.component';
 import { ClinicalHistoryComponent } from './components/clinical-history/clinical-history-component';
 import { NavbarComponent} from './components/navbar/navbar.component';
 import { DoctorComponent } from './components/doctor/doctor.component';
+import { Ng2FilterPipeModule } from 'ng2-filter-pipe';
+
 
 
 declare var firebase: any;
@@ -45,7 +47,8 @@ export const appRoutes: Routes = [
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    Ng2FilterPipeModule
   ],
 
   providers: [FirebaseService],

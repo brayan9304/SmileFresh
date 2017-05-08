@@ -13,8 +13,10 @@ export class PatientsComponent implements OnInit {
   service: FirebaseService;
   addPat: boolean = false;
   showPat: boolean = false;
+  showPatFiltered: boolean = false;
   patientList: Array<any> = [];
   list: any;
+  patientFilter: any = { firstName: '' };
   item: Patient;
   addPatientCont: number = 0;
   patient: Patient = {
@@ -45,6 +47,11 @@ export class PatientsComponent implements OnInit {
     this.addPat = true;
   }
 
+  showPatientFiltered(){
+  this.showPat = false;
+  this.showPatFiltered = true;
+}
+
   addPatientInformation() {
     this.patient.age = this.calcAge(this.patient.birthdate);
 
@@ -74,10 +81,12 @@ export class PatientsComponent implements OnInit {
 }
 
   showPatient() {
+    this.patientFilter.firstName = '';
     this.addPatientCont += 1;
     this.service.getPatientsList();
     this.patients = this.service.patients;
     this.showPat = true;
+    this.showPatFiltered = false;
     this.list = this.patients;
       for (let key in this.list) {
         if(this.addPatientCont > 1) {
