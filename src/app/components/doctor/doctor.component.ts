@@ -19,7 +19,6 @@ export class DoctorComponent implements OnInit {
   doctorFilter: any = { firstName: '' };
   list: any;
   item: Doctor;
-  addDoctorCont: number = 0;
   doctor: Doctor = {
     id: '',
     firstName: '',
@@ -46,16 +45,12 @@ export class DoctorComponent implements OnInit {
   }
 
   showDoctorsFiltered(){
-    this.addDoctorCont += 1;
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;
     this.showDoc = false;
     this.showDocFiltered = true;
     this.list = this.doctors;
     for (let key in this.list) {
-      if (this.addDoctorCont > 1) {
-        break;
-      }
       this.item = {
         id: this.list[key].id,
         firstName: this.list[key].firstName,
@@ -96,16 +91,12 @@ export class DoctorComponent implements OnInit {
 
   showDoctor() {
     this.doctorList = [];
-    this.addDoctorCont += 1;
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;
     this.showDoc = true;
     this.showDocFiltered = false;
     this.list = this.doctors;
     for (let key in this.list) {
-      if (this.addDoctorCont > 1) {
-        break;
-      }
       this.item = {
         id: this.list[key].id,
         firstName: this.list[key].firstName,
