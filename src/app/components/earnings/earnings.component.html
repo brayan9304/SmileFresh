@@ -1,18 +1,24 @@
-<button (click)="showEvents()" class="btn btn-primary">SHOW EARNINGS</button>
+<button (click)="showEvents(0)" class="btn btn-primary">January</button>
+<button (click)="showEvents(1)" class="btn btn-primary">February</button>
+<button (click)="showEvents(2)" class="btn btn-primary">March</button>
+<button (click)="showEvents(3)" class="btn btn-primary">April</button>
+<button (click)="showEvents(4)" class="btn btn-primary">May</button>
+<button (click)="showEvents(5)" class="btn btn-primary">June</button>
+<button (click)="showEvents(6)" class="btn btn-primary">July</button>
+<button (click)="showEvents(7)" class="btn btn-primary">August</button>
+<button (click)="showEvents(8)" class="btn btn-primary">September</button>
+<button (click)="showEvents(9)" class="btn btn-primary">October</button>
+<button (click)="showEvents(10)" class="btn btn-primary">November</button>
+<button (click)="showEvents(11)" class="btn btn-primary">December</button>
+
 
 <div *ngIf="showEvent">
 
   <div class="card">
     <ul *ngFor="let event of eventsList" class="list-group list-group-flush">
       <li class="list-group-item">
-        <p>Date: {{event.date}} </p>
-        <p>Patient: {{event.patient}}</p>
-        <p>Doctor: {{event.doctor}}</p>
-        <p>Start Time: {{event.startTime}}</p>
-        <p>End Time: {{event.endTime}}</p>
-        <p>Price: {{event.price}}</p>
-        <p>Sold: {{event.sold}}</p>
-        <p><button (click)="setSold(event.key,event)" class="btn btn-primary">pay</button></p>
+        <p>name: {{event.name}}</p>
+        <p>cash {{event.total}}</p>
       </li>
     </ul>
   </div>

@@ -38,16 +38,26 @@ export class EarningsComponent implements OnInit {
     this.events = this.service.doctors;
   }
 
-  showEvents() {
-    console.log('showEvents');
-    //this.addDoctorCont += 1;
+  exist(event){
+    for(let item of this.eventsList){
+      if(event.doctor == item.doctor){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  showEvents(month) {
+    this.eventsList=[];
+    let listMonth=[];
     this.service.getEventsList();
     this.events = this.service.events;
     this.showEvent = true;
     this.showEventFiltered = false;
     this.list = this.events;
     for (let key in this.list) {
-      if(!this.list[key].sold){
+      let dateAux = new Date(this.list[key].date);
+      if(month == dateAux.getMonth()){
         let item = {
           date: this.list[key].date,
           startTime: this.list[key].startTime,
@@ -56,24 +66,28 @@ export class EarningsComponent implements OnInit {
           price: this.list[key].price,
           patient: this.list[key].patient,
           sold:this.list[key].sold,
-          key: key
+          key: key,
         };
-        this.eventsList.push(item);
+        listMonth.push(item);
+      }
+    }
+    console.log(listMonth);
+    let cash:number = 0;
+    let doc;
+    for(let item of listMonth){
+      if(this.exist(item)==false){
+        for(let itemAux of listMonth){
+          if(item.doctor == itemAux.doctor){
+            cash += Number(itemAux.price);
+          }
+          doc={
+            name: itemAux.doctor,
+            total: cash
+          }
+        }
+        this.eventsList.push(doc);
+        cash = 0;
       }
     }
   }
-  setSold(key,event){
-    this.item = {
-      date: event.date,
-      startTime: event.startTime,
-      endTime: event.endTime,
-      doctor: event.doctor,
-      price: event.price,
-      patient: event.patient,
-      sold:true
-    };
-    this.service.editEvent(key,this.item);
-    location.reload();
-  }
-
 }
