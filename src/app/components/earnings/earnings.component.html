@@ -1,0 +1,19 @@
+<button (click)="showEvents()" class="btn btn-primary">SHOW EARNINGS</button>
+
+<div *ngIf="showEvent">
+
+  <div class="card">
+    <ul *ngFor="let event of eventsList" class="list-group list-group-flush">
+      <li class="list-group-item">
+        <p>Date: {{event.date}} </p>
+        <p>Patient: {{event.patient}}</p>
+        <p>Doctor: {{event.doctor}}</p>
+        <p>Start Time: {{event.startTime}}</p>
+        <p>End Time: {{event.endTime}}</p>
+        <p>Price: {{event.price}}</p>
+        <p>Sold: {{event.sold}}</p>
+        <p><button (click)="setSold(event.key,event)" class="btn btn-primary">pay</button></p>
+      </li>
+    </ul>
+  </div>
+</div>

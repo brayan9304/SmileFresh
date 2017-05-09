@@ -5,11 +5,11 @@ import {EventCalendar} from "../event-date";
 declare var firebase: any;
 
 @Component({
-  selector: 'payment-component',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  selector: 'earnings-component',
+  templateUrl: './earnings.component.html',
+  styleUrls: ['./earnings.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class EarningsComponent implements OnInit {
   service: FirebaseService;
   showEvent: boolean = false;
   showEventFiltered: boolean = false;
@@ -47,6 +47,7 @@ export class PaymentComponent implements OnInit {
     this.showEventFiltered = false;
     this.list = this.events;
     for (let key in this.list) {
+      if(!this.list[key].sold){
         let item = {
           date: this.list[key].date,
           startTime: this.list[key].startTime,
@@ -58,6 +59,7 @@ export class PaymentComponent implements OnInit {
           key: key
         };
         this.eventsList.push(item);
+      }
     }
   }
   setSold(key,event){
@@ -70,8 +72,8 @@ export class PaymentComponent implements OnInit {
       patient: event.patient,
       sold:true
     };
-  this.service.editEvent(key,this.item);
-  location.reload();
+    this.service.editEvent(key,this.item);
+    location.reload();
   }
 
 }
