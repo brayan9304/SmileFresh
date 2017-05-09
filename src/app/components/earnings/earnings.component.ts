@@ -5,11 +5,11 @@ import {EventCalendar} from "../event-date";
 declare var firebase: any;
 
 @Component({
-  selector: 'payment-component',
-  templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.css']
+  selector: 'earnings-component',
+  templateUrl: './earnings.component.html',
+  styleUrls: ['./earnings.component.css']
 })
-export class PaymentComponent implements OnInit {
+export class EarningsComponent implements OnInit {
   service: FirebaseService;
   showEvent: boolean = false;
   showEventFiltered: boolean = false;
@@ -38,15 +38,26 @@ export class PaymentComponent implements OnInit {
     this.events = this.service.doctors;
   }
 
-  showEvents() {
-    this.eventsList = [];
+  exist(event){
+    for(let item of this.eventsList){
+      if(event.doctor === item.name){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  showEvents(month) {
+    this.eventsList=[];
+    let listMonth=[];
     this.service.getEventsList();
     this.events = this.service.events;
     this.showEvent = true;
     this.showEventFiltered = false;
     this.list = this.events;
     for (let key in this.list) {
-      if(!this.list[key].sold){
+      let dateAux = new Date(this.list[key].date);
+      if(month == dateAux.getMonth()){
         let item = {
           date: this.list[key].date,
           startTime: this.list[key].startTime,
@@ -55,24 +66,29 @@ export class PaymentComponent implements OnInit {
           price: this.list[key].price,
           patient: this.list[key].patient,
           sold:this.list[key].sold,
-          key: key
+          key: key,
         };
-        this.eventsList.push(item);
+        listMonth.push(item);
+      }
+    }
+    let cash:number = 0;
+    let doc;
+    for(let item of listMonth){
+      if(this.exist(item)==false){
+        for(let itemAux of listMonth){
+          if(item.doctor == itemAux.doctor){
+            cash += Number(itemAux.price);
+          }
+          doc={
+            name: item.doctor,
+            total: cash
+          }
+        }
+        if (this.exist(item)==false) {
+          this.eventsList.push(doc);
+        }
+        cash = 0;
       }
     }
   }
-  setSold(key,event){
-    this.item = {
-      date: event.date,
-      startTime: event.startTime,
-      endTime: event.endTime,
-      doctor: event.doctor,
-      price: event.price,
-      patient: event.patient,
-      sold:true
-    };
-    this.service.editEvent(key,this.item);
-    location.reload();
-  }
-
 }
