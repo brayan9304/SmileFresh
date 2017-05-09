@@ -10,6 +10,7 @@ declare var firebase: any;
   styleUrls: ['./earnings.component.css']
 })
 export class EarningsComponent implements OnInit {
+  month;
   service: FirebaseService;
   showEvent: boolean = false;
   showEventFiltered: boolean = false;
@@ -47,7 +48,7 @@ export class EarningsComponent implements OnInit {
     return false;
   }
 
-  showEvents(month) {
+  showEvents() {
     this.eventsList=[];
     let listMonth=[];
     this.service.getEventsList();
@@ -57,7 +58,7 @@ export class EarningsComponent implements OnInit {
     this.list = this.events;
     for (let key in this.list) {
       let dateAux = new Date(this.list[key].date);
-      if(month == dateAux.getMonth() && this.list[key].sold == true){
+      if(this.month == dateAux.getMonth() && this.list[key].sold == true){
         let item = {
           date: this.list[key].date,
           startTime: this.list[key].startTime,
