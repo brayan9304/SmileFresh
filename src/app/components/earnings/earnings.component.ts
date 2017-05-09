@@ -40,7 +40,7 @@ export class EarningsComponent implements OnInit {
 
   exist(event){
     for(let item of this.eventsList){
-      if(event.doctor === item.name){
+      if(event.doctor === item.doctor){
         return true;
       }
     }
@@ -80,7 +80,7 @@ export class EarningsComponent implements OnInit {
             cash += Number(itemAux.price);
           }
           doc={
-            name: item.doctor,
+            doctor: item.doctor,
             total: cash
           }
         }
