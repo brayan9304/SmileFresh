@@ -57,7 +57,7 @@ export class EarningsComponent implements OnInit {
     this.list = this.events;
     for (let key in this.list) {
       let dateAux = new Date(this.list[key].date);
-      if(month == dateAux.getMonth()){
+      if(month == dateAux.getMonth() && this.list[key].sold == true){
         let item = {
           date: this.list[key].date,
           startTime: this.list[key].startTime,

@@ -35,7 +35,7 @@
               <label for="doctor-select-1">Doctor</label>
               <select name="doctor-select" class="form-control" id="doctor-select-1" [(ngModel)]= "history.idDoctor">
                 <option disabled></option>
-                <option  *ngFor="let doctor of doctors_available">{{doctor.firstName}} {{doctor.lastName}} - {{doctor.id}} </option>
+                <option  [ngValue] = "doctor.firstName + ' '+ doctor.lastName + ' - id: '+doctor.id "   *ngFor="let doctor of doctors_available">{{doctor.firstName}} {{doctor.lastName}} - {{doctor.id}} </option>
               </select>
             </div>
             <div>Description <textarea  [(ngModel)]="history.description" id="record-description" name="id" class="form-control" placeholder="Patient's ID" required></textarea></div>

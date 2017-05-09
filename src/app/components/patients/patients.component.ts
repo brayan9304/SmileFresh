@@ -48,6 +48,7 @@ export class PatientsComponent implements OnInit {
   }
 
   showPatientFiltered() {
+    this.patientList = [];
     this.patientFilter.firstName = '';
     this.service.getPatientsList();
     this.patients = this.service.patients;

@@ -41,7 +41,7 @@ export class DoctorComponent implements OnInit {
     jQuery('.selectpicker').selectpicker({
       style: 'btn-primary'
     });
-    
+
     jQuery('.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover').css('color', 'white');
 
   }
@@ -51,6 +51,7 @@ export class DoctorComponent implements OnInit {
   }
 
   showDoctorsFiltered(){
+    this.doctorList = [];
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;
     this.showDoc = false;
