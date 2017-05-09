@@ -11,7 +11,7 @@ declare var firebase: any;
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit{
+export class CalendarComponent implements OnInit {
   database = firebase.database();
   firebaseService: FirebaseService;
   eventData: EventCalendar;
