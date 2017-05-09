@@ -46,7 +46,7 @@
               <label for="doctor-select">Doctor</label>
               <select name="doctor-select" class="form-control" id="doctor-select" [(ngModel)]="eventData.doctor">
                 <option disabled></option>
-                <option *ngFor="let doctor of doctors_available">{{doctor.firstName}} {{doctor.lastName}} </option>
+                <option [ngValue] = "doctor.firstName+' '+doctor.lastName+'-'+doctor.id" *ngFor="let doctor of doctors_available">{{doctor.firstName}} {{doctor.lastName}} - {{doctor.id}}  </option>
               </select>
             </div>
 
@@ -54,7 +54,7 @@
               <label for="patient-select">Patient</label>
               <select [(ngModel)]="eventData.patient" name="patient-select" class="form-control" id="patient-select">
                 <option disabled></option>
-                <option *ngFor="let patient of patients">{{patient.firstName}} {{patient.lastName}} </option>
+                <option [ngValue] = "patient.firstName+' '+patient.lastName+'-'+patient.id"  *ngFor="let patient of patients">{{patient.firstName}} {{patient.lastName}} - {{patient.id}}  </option>
               </select>
             </div>
 

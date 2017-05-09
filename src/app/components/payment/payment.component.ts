@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
 import {EventCalendar} from "../event-date";
-import {window} from "rxjs/operator/window";
 
 declare var firebase: any;
 
@@ -22,7 +21,7 @@ export class PaymentComponent implements OnInit {
     startTime: '',
     endTime: '',
     doctor: '',
-    price: '',
+    price: null,
     patient: '',
     sold:false
   };
