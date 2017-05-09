@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit{
             title: list[key].patient,
             start: list[key].date + "T" + list[key].startTime,
             end: list[key].date + "T" + list[key].endTime,
-            doctor: list[key].eventData,
+            doctor: list[key].doctor,
             price: list[key].price,
             eventKey: key
           };
