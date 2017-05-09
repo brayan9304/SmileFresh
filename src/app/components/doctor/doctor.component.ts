@@ -38,6 +38,9 @@ export class DoctorComponent implements OnInit {
   ngOnInit() {
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;
+    jQuery('.selectpicker').selectpicker({
+    });
+
   }
 
   addDoctor() {
