@@ -39,8 +39,7 @@ export class PaymentComponent implements OnInit {
   }
 
   showEvents() {
-    console.log('showEvents');
-    //this.addDoctorCont += 1;
+    this.eventsList = [];
     this.service.getEventsList();
     this.events = this.service.events;
     this.showEvent = true;
