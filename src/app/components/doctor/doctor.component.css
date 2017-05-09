@@ -7,3 +7,13 @@
   margin-top: 15px;
 }
 
+
+toggle.bs-placeholder:hover {
+   color: #ffffff !important;
+}
+
+
+.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover {
+  color: #ffffff !important;
+}
+
