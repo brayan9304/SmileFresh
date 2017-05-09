@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
-import {EventCalendar} from "./event-date";
+import {EventCalendar} from "../event-date";
 
 declare var jQuery: any;
 declare var moment: any;
@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit{
             title: list[key].patient,
             start: list[key].date + "T" + list[key].startTime,
             end: list[key].date + "T" + list[key].endTime,
-            doctor: list[key].doctor,
+            doctor: list[key].eventData,
             price: list[key].price,
             eventKey: key
           };
