@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Patient} from "../components/patient";
 import {Doctor} from "../components/doctor";
 import {PatientsHistory} from '../components/patientsHistory';
+import {EventCalendar} from "../components/event-date";
 
 
 
@@ -12,6 +13,7 @@ declare var firebase: any
 export class FirebaseService {
   database = firebase.database();
   eventsRef = this.database.ref("events");
+  events: EventCalendar[];
   patientsRef = this.database.ref("patients");
   doctorsRef = this.database.ref("doctors");
   doctors: Doctor[];
@@ -64,6 +66,18 @@ export class FirebaseService {
   saveDoctor(doctorAdded){
     this.doctorsRef.push().set(doctorAdded);
     return null;
+  }
+  loadEvents(data) {
+    this.events = data;
+  }
+  getEventsList(){
+    var gotData = (data => {
+      this.loadEvents(data.val());
+    });
+    var errData = (error => {
+      console.log(error);
+    });
+    this.eventsRef.on('value', gotData, errData);
   }
 
   getDoctorsList(){

@@ -4,8 +4,7 @@ export class EventCalendar{
   startTime:string;
   endTime:string;
   doctor:string;
-  price:string;
+  price:number;
   patient:string;
   sold:boolean;
-
 }

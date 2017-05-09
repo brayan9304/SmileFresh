@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../../services/firebase.service';
-import {EventCalendar} from "./event-date";
+import {EventCalendar} from "../event-date";
 
 declare var jQuery: any;
 declare var moment: any;
@@ -36,11 +36,11 @@ export class CalendarComponent implements OnInit{
       startTime: '',
       endTime: '',
       doctor: '',
-      price: '',
+      price: null,
       patient: '',
-      sold:false
-    };
+      sold:false,
 
+    };
     const eventsRef = this.database.ref('events');
     const patientsRef = this.database.ref('patients');
     const doctorsRef = this.database.ref('doctors');
@@ -60,7 +60,7 @@ export class CalendarComponent implements OnInit{
             title: list[key].patient,
             start: list[key].date + "T" + list[key].startTime,
             end: list[key].date + "T" + list[key].endTime,
-            doctor: list[key].doctor,
+            doctor: list[key].eventData,
             price: list[key].price,
             eventKey: key
           };
@@ -75,7 +75,8 @@ export class CalendarComponent implements OnInit{
         for (let key in list) {
           patient = {
             firstName: list[key].firstName,
-            lastName: list[key].lastName
+            lastName: list[key].lastName,
+            id: list[key].id
           };
           arrayPatients.push(patient);
         }
@@ -89,7 +90,8 @@ export class CalendarComponent implements OnInit{
           doctor = {
             firstName: list[key].firstName,
             lastName: list[key].lastName,
-            workingDays: list[key].workingDays
+            workingDays: list[key].workingDays,
+            id: list[key].id
           };
           arrayDoctors.push(doctor);
         }
@@ -139,7 +141,7 @@ export class CalendarComponent implements OnInit{
       var restore = () => {
         this.eventData.startTime = '';
         this.eventData.endTime = '';
-        this.eventData.price = '';
+        this.eventData.price = null;
         this.eventData.doctor = '';
         this.eventData.patient = '';
       };
