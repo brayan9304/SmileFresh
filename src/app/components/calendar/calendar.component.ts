@@ -11,7 +11,7 @@ declare var firebase: any;
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent implements OnInit{
+export class CalendarComponent implements OnInit {
   database = firebase.database();
   firebaseService: FirebaseService;
   eventData: EventCalendar;
@@ -20,6 +20,7 @@ export class CalendarComponent implements OnInit{
   days=['Monday','Tuesday','Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   doctors_available =[];
   keyEventData;
+  rightHour : boolean = false;
 
   constructor(firebaseService: FirebaseService) {
     this.firebaseService = firebaseService;
@@ -56,17 +57,17 @@ export class CalendarComponent implements OnInit{
         arrayEvents = [];
         list = snapshot.val();
         for (let key in list) {
-          event = {
-            title: list[key].patient,
-            start: list[key].date + "T" + list[key].startTime,
-            end: list[key].date + "T" + list[key].endTime,
-            doctor: list[key].doctor,
-            price: list[key].price,
-            eventKey: key
-          };
-          arrayEvents.push(event);
+            event = {
+              title: list[key].patient,
+              start: list[key].date + "T" + list[key].startTime,
+              end: list[key].date + "T" + list[key].endTime,
+              doctor: list[key].doctor,
+              price: list[key].price,
+              eventKey: key
+            };
+            arrayEvents.push(event);
         }
-       setCalendar(arrayEvents);
+          setCalendar(arrayEvents);
       });
 
       patientsRef.on('value', function (snapshot) {
@@ -202,7 +203,11 @@ export class CalendarComponent implements OnInit{
     });
   }
   edit() {
-    this.firebaseService.editEvent(this.keyEventData, this.eventData);
+    if(this.eventData.startTime < this.eventData.endTime){
+      this.firebaseService.editEvent(this.keyEventData, this.eventData);
+    }else{
+      alert("The start time is wrong");
+    }
   }
   onSubmit() {
     let eventRender = {
@@ -212,11 +217,11 @@ export class CalendarComponent implements OnInit{
       doctor: this.eventData.doctor,
       price: this.eventData.price
     };
-    if(this.eventData.patient != '' &&  this.eventData.doctor != '') {
+    if(this.eventData.patient != '' &&  this.eventData.doctor != '' && this.eventData.startTime < this.eventData.endTime) {
       this.firebaseService.saveEvent(this.eventData);
       jQuery('#calendar').fullCalendar('renderEvent', eventRender, true);
     }else{
-      alert('Empty Fields');
+      alert('Empty Fields or Start Time is wrong');
     }
   }
 }

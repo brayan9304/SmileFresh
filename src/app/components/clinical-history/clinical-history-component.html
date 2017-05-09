@@ -1,4 +1,4 @@
-<button  style="margin-bottom: 15px;" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modal"> ADD RECORD </button>
+<button  (click)="setDoctors()"  style="margin-bottom: 15px;" class="btn btn-primary" data-toggle="modal" data-target="#add_event_modal"> ADD RECORD </button>
 
 <button style="margin-bottom: 15px;" (click)="showRecords()" class="btn btn-primary"> SHOW RECORDS </button>
 <div *ngIf="showRecord">
@@ -6,10 +6,11 @@
     <li class="list-group-item">
       <p>Date: {{record.elaboratioDate}}</p>
       <p>Doctor: {{record.idDoctor}}</p>
-      <p>Doctor: {{record.description}}</p>
+      <p>Description: {{record.description}}</p>
     </li>
   </ul>
 </div>
+
 
 <div class="modal fade" id="add_event_modal" tabindex="-1" role="dialog"
      aria-labelledby="myModalLabel" aria-hidden="true">
@@ -26,14 +27,15 @@
           Add record
         </h4>
       </div>
-
       <!-- Modal Body -->
       <div id="modal-event" class="modal-body">
         <form #record_form="ngForm">
           <div class="input-group" style="width: 100%">
-            <div>Doctor
-              <select [(ngModel)]="history.idDoctor" id="doctor_id" class="form-control" id="sel_doctor" name="doctor">
-                <option>1</option>
+            <div class="form-group">
+              <label for="doctor-select-1">Doctor</label>
+              <select name="doctor-select" class="form-control" id="doctor-select-1" [(ngModel)]= "history.idDoctor">
+                <option disabled></option>
+                <option  *ngFor="let doctor of doctors_available">{{doctor.firstName}} {{doctor.lastName}} - {{doctor.id}} </option>
               </select>
             </div>
             <div>Description <textarea  [(ngModel)]="history.description" id="record-description" name="id" class="form-control" placeholder="Patient's ID" required></textarea></div>

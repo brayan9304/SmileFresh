@@ -20,13 +20,14 @@ export class ClinicalHistoryComponent implements OnInit {
   key: any = [];
   showRecord: Boolean = false;
   item: PatientsHistory;
-  addHistoryCont: number = 0;
   history: PatientsHistory = {
     elaboratioDate: '',
     idDoctor: null,
     idPatient: null,
     description: ''
   };
+  doctors;
+  doctors_available =[];
   histories: Object[];
   historieList: Array<any> = [];
 
@@ -37,6 +38,8 @@ export class ClinicalHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.key = [];
+    let arrayDoctors = [];
+    let list;
     this.route.params.subscribe(params => {
       this.id = +params['id'];
     });
@@ -54,18 +57,41 @@ export class ClinicalHistoryComponent implements OnInit {
     });
     this.service.getHistorieList();
     this.histories = this.service.histories;
+
+    const doctorsRef = this.database.ref('doctors');
+
+    var setDoctors = (arrayDoctors) => {
+      this.doctors = arrayDoctors;
+    };
+
+    doctorsRef.on('value', function (snapshot) {
+      list = snapshot.val();
+      let doctor;
+      for (let key in list) {
+        doctor = {
+          firstName: list[key].firstName,
+          lastName: list[key].lastName,
+          workingDays: list[key].workingDays,
+          id: list[key].id
+        };
+        arrayDoctors.push(doctor);
+      }
+      setDoctors(arrayDoctors);
+    });
+  }
+
+
+  setDoctors(){
+    this.doctors_available = this.doctors;
   }
 
   showRecords() {
-    this.addHistoryCont += 1;
+    this.historieList = [];
     this.service.getPatientsList();
     this.histories = this.service.histories;
     this.showRecord = true;
     this.list = this.histories;
     for (let key in this.list) {
-      if(this.addHistoryCont > 1) {
-        break;
-      }
       this.item = {
         elaboratioDate: this.list[key].elaboratioDate,
         idDoctor: this.list[key].idDoctor,
