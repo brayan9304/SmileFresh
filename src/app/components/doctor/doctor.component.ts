@@ -39,7 +39,10 @@ export class DoctorComponent implements OnInit {
     this.service.getDoctorsList();
     this.doctors = this.service.doctors;
     jQuery('.selectpicker').selectpicker({
+      style: 'btn-primary'
     });
+    
+    jQuery('.bootstrap-select>.dropdown-toggle.bs-placeholder, .bootstrap-select>.dropdown-toggle.bs-placeholder:active, .bootstrap-select>.dropdown-toggle.bs-placeholder:focus, .bootstrap-select>.dropdown-toggle.bs-placeholder:hover').css('color', 'white');
 
   }
 
