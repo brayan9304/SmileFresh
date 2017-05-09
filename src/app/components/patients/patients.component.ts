@@ -19,7 +19,6 @@ export class PatientsComponent implements OnInit {
   list: any;
   patientFilter: any = { firstName: '' };
   item: Patient;
-  addPatientCont: number = 0;
   patient: Patient = {
     id: '',
     firstName: '',
@@ -48,18 +47,14 @@ export class PatientsComponent implements OnInit {
     this.addPat = true;
   }
 
-  showPatientFiltered(){
+  showPatientFiltered() {
     this.patientFilter.firstName = '';
-    this.addPatientCont += 1;
     this.service.getPatientsList();
     this.patients = this.service.patients;
     this.showPat = false;
     this.showPatFiltered = true;
     this.list = this.patients;
     for (let key in this.list) {
-      if(this.addPatientCont > 1) {
-        break;
-      }
       this.item = {
         id: this.list[key].id,
         firstName: this.list[key].firstName,
@@ -118,16 +113,12 @@ export class PatientsComponent implements OnInit {
   showPatient() {
     this.patientList = [];
     this.patientFilter.firstName = '';
-    this.addPatientCont += 1;
     this.service.getPatientsList();
     this.patients = this.service.patients;
     this.showPat = true;
     this.showPatFiltered = false;
     this.list = this.patients;
       for (let key in this.list) {
-        if(this.addPatientCont > 1) {
-          break;
-        }
         this.item = {
           id: this.list[key].id,
           firstName: this.list[key].firstName,
