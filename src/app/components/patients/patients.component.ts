@@ -17,7 +17,7 @@ export class PatientsComponent implements OnInit {
   showPatFiltered: boolean = false;
   patientList: Array<any> = [];
   list: any;
-  patientFilter: any = { firstName: '' };
+  patientFilter: any = {firstName: ''};
   item: Patient;
   patient: Patient = {
     id: '',
@@ -32,6 +32,8 @@ export class PatientsComponent implements OnInit {
   };
   patients: Object[];
   database: any;
+  patientAdded: boolean = false;
+  needsFetching: boolean = true;
 
   constructor(firebaseService: FirebaseService) {
     this.service = firebaseService;
@@ -48,41 +50,29 @@ export class PatientsComponent implements OnInit {
   }
 
   showPatientFiltered() {
-    this.patientList = [];
-    this.patientFilter.firstName = '';
-    this.service.getPatientsList();
-    this.patients = this.service.patients;
     this.showPat = false;
     this.showPatFiltered = true;
-    this.list = this.patients;
-    for (let key in this.list) {
-      this.item = {
-        id: this.list[key].id,
-        firstName: this.list[key].firstName,
-        lastName: this.list[key].lastName,
-        address: this.list[key].address,
-        phone: this.list[key].phone,
-        occupation: this.list[key].occupation,
-        birthdate: this.list[key].birthdate,
-        age: this.calcAge(this.list[key].birthdate),
-        genre: this.list[key].genre
-      };
-      this.patientList.push(this.item);
+    this.showPatientsLoop();
+  }
+
+
+  isInList() {
+    let exist = false;
+    for (let item in this.patientList) {
+      if (this.patientList[item].id === this.patient.id) {
+        exist = true;
+        break;
+      }
     }
-}
+    return exist;
+  }
 
   addPatientInformation() {
+    this.patientAdded = true;
     this.patient.age = this.calcAge(this.patient.birthdate);
-
-    if(this.patient.age >= 0) {
-      let exist = false;
-      for(let item in this.patientList) {
-        if(this.patientList[item].id === this.patient.id) {
-          exist = true;
-          break;
-        }
-      }
-      if(exist == false){
+    if (this.patient.age >= 0) {
+      let exist = this.isInList();
+      if (exist == false) {
         this.service.savePatient(this.patient);
         this.patientList.push(this.patient);
         this.addPat = false;
@@ -98,7 +88,7 @@ export class PatientsComponent implements OnInit {
           genre: ''
         };
         jQuery('.modal').modal('hide');
-      }else{
+      } else {
         alert("Patient already exists");
       }
     } else {
@@ -107,31 +97,40 @@ export class PatientsComponent implements OnInit {
   }
 
   calcAge(birthday) {
-  let date: any = new Date(birthday);
-  return Math.floor((Date.now() - date) / 31536000000);
-}
+    let date: any = new Date(birthday);
+    return Math.floor((Date.now() - date) / 31536000000);
+  }
 
   showPatient() {
+    this.showPat = true;
+    this.showPatFiltered = false;
+    if (this.patientAdded || this.needsFetching) {
+      this.showPatientsLoop();
+    }
+    this.needsFetching = false;
+  }
+
+  showPatientsLoop() {
+    console.log("looping");
     this.patientList = [];
     this.patientFilter.firstName = '';
     this.service.getPatientsList();
     this.patients = this.service.patients;
-    this.showPat = true;
-    this.showPatFiltered = false;
     this.list = this.patients;
-      for (let key in this.list) {
-        this.item = {
-          id: this.list[key].id,
-          firstName: this.list[key].firstName,
-          lastName: this.list[key].lastName,
-          address: this.list[key].address,
-          phone: this.list[key].phone,
-          occupation: this.list[key].occupation,
-          birthdate: this.list[key].birthdate,
-          age: this.calcAge(this.list[key].birthdate),
-          genre: this.list[key].genre
-        };
-        this.patientList.push(this.item);
-      }
+    for (let key in this.list) {
+      this.item = {
+        id: this.list[key].id,
+        firstName: this.list[key].firstName,
+        lastName: this.list[key].lastName,
+        address: this.list[key].address,
+        phone: this.list[key].phone,
+        occupation: this.list[key].occupation,
+        birthdate: this.list[key].birthdate,
+        age: this.calcAge(this.list[key].birthdate),
+        genre: this.list[key].genre
+      };
+      this.patientList.push(this.item);
     }
+    this.patientAdded = false;
+  }
 }
